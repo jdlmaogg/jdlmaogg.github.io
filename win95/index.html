@@ -19,7 +19,10 @@
       --win95-btn-highlight: #ffffff;
       --win95-wallpaper-1: #008080;
       --win95-wallpaper-2: #0a8b8b;
-      --win95-shadow: rgba(0,0,0,0.3);
+      --win95-shadow: rgba(0, 0, 0, 0.3);
+      --win95-green: #1b5e20;
+      --win95-red: #b22222;
+      --win95-gold: #d6a600;
     }
 
     * {
@@ -272,6 +275,26 @@
       background: #bcbcbc;
       transform: translateY(-8px);
       box-shadow: 0 4px 0 #bcbcbc, 0 8px 0 #bcbcbc;
+    }
+
+    .icon-game::before {
+      content: "";
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      background: linear-gradient(180deg, #fafafa, #d9d9d9);
+      border: 2px solid #666;
+      box-shadow: inset 1px 1px 0 #fff;
+      transform: translateY(2px);
+    }
+
+    .icon-game::after {
+      content: "✦";
+      position: absolute;
+      color: #b22222;
+      font-size: 18px;
+      font-weight: bold;
+      transform: translateY(-2px);
     }
 
     .window {
@@ -580,6 +603,119 @@
       background: linear-gradient(#d9d9d9, #8c8c8c);
     }
 
+    .game-window {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      height: 100%;
+      background: #d4d0c8;
+    }
+
+    .game-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #efefef;
+      border-bottom: 1px solid #808080;
+      padding: 6px 8px;
+      font-size: 12px;
+    }
+
+    .game-content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #c0c0c0;
+      padding: 10px;
+    }
+
+    .minesweeper-board {
+      display: grid;
+      grid-template-columns: repeat(9, 24px);
+      gap: 2px;
+      background: #808080;
+      border: 2px solid #fff;
+      box-shadow: inset 2px 2px 0 #7a7a7a;
+      padding: 4px;
+      font-family: "Courier New", monospace;
+    }
+
+    .cell {
+      width: 24px;
+      height: 24px;
+      background: #c0c0c0;
+      border-top: 2px solid #fff;
+      border-left: 2px solid #fff;
+      border-right: 2px solid #808080;
+      border-bottom: 2px solid #808080;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 0;
+      font-size: 12px;
+      color: #000;
+    }
+
+    .cell.revealed {
+      background: #d4d0c8;
+      border: 1px solid #808080;
+      cursor: default;
+      box-shadow: inset 1px 1px 0 rgba(0,0,0,0.15);
+    }
+
+    .cell.mine {
+      background: #ffcbcb;
+      color: #a00;
+    }
+
+    .cell.flagged {
+      background: #ffd9d9;
+    }
+
+    .solitaire-board {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      justify-content: center;
+      width: 100%;
+      max-width: 340px;
+      min-height: 180px;
+      background: var(--win95-green);
+      border: 2px solid #000;
+      padding: 16px 12px;
+      box-shadow: inset 2px 2px 0 rgba(255,255,255,0.25);
+    }
+
+    .solitaire-pile {
+      width: 42px;
+      height: 56px;
+      border: 2px solid rgba(255,255,255,0.35);
+      border-radius: 2px;
+      background: rgba(255,255,255,0.12);
+      position: relative;
+    }
+
+    .card {
+      width: 42px;
+      height: 56px;
+      border: 2px solid #000;
+      border-radius: 3px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      font-weight: bold;
+      font-size: 18px;
+      box-shadow: 1px 1px 0 rgba(0,0,0,0.25);
+    }
+
+    .card.red { color: #c00000; }
+    .card.black { color: #000; }
+
     .taskbar {
       position: absolute;
       left: 0;
@@ -688,8 +824,8 @@
       position: absolute;
       left: 4px;
       bottom: 38px;
-      width: 250px;
-      height: 360px;
+      width: 270px;
+      height: 390px;
       background: var(--win95-gray-1);
       border-top: 2px solid #fff;
       border-left: 2px solid #fff;
@@ -799,16 +935,18 @@
       <div class="start-item" data-app="ie"><span class="mini-icon">🌐</span> Internet Explorer</div>
       <div class="start-item" data-app="notepad"><span class="mini-icon">📝</span> Notepad</div>
       <div class="start-item" data-app="calc"><span class="mini-icon">🧮</span> Calculator</div>
+      <div class="start-item" data-app="minesweeper"><span class="mini-icon">💣</span> Minesweeper</div>
+      <div class="start-item" data-app="solitaire"><span class="mini-icon">♠</span> Solitaire</div>
       <div class="start-item" data-app="about"><span class="mini-icon">ℹ</span> About</div>
     </div>
   </div>
 
   <script>
-    const desktop = document.getElementById("desktop");
-    const taskbarButtons = document.getElementById("taskbarButtons");
-    const startBtn = document.getElementById("startBtn");
-    const startMenu = document.getElementById("startMenu");
-    const clock = document.getElementById("clock");
+    const desktop = document.getElementById('desktop');
+    const taskbarButtons = document.getElementById('taskbarButtons');
+    const startBtn = document.getElementById('startBtn');
+    const startMenu = document.getElementById('startMenu');
+    const clock = document.getElementById('clock');
     const appMap = new Map();
     const appOrder = [];
     let zIndexCounter = 10;
@@ -820,13 +958,13 @@
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.type = 'square';
-      osc.frequency.value = 660;
-      gain.gain.value = 0.03;
+      osc.frequency.value = 440;
+      gain.gain.value = 0.02;
       osc.connect(gain);
       gain.connect(ctx.destination);
       osc.start();
       osc.stop(ctx.currentTime + 0.12);
-      setTimeout(() => ctx.close(), 180);
+      setTimeout(() => ctx.close(), 150);
     }
 
     function bootSequence() {
@@ -838,10 +976,9 @@
 
     function updateClock() {
       const now = new Date();
-      let h = now.getHours();
+      const h = (now.getHours() % 12) || 12;
       const m = now.getMinutes().toString().padStart(2, '0');
-      const suffix = h >= 12 ? 'PM' : 'AM';
-      h = h % 12 || 12;
+      const suffix = now.getHours() >= 12 ? 'PM' : 'AM';
       clock.textContent = `${h}:${m} ${suffix}`;
     }
     updateClock();
@@ -872,9 +1009,7 @@
       const taskBtn = document.querySelector(`.task-btn[data-id="${id}"]`);
       document.querySelectorAll('.task-btn').forEach(btn => btn.classList.toggle('active', btn === taskBtn));
       const win = appMap.get(id);
-      if (win) {
-        win.el.style.zIndex = String(zIndexCounter++);
-      }
+      if (win) win.el.style.zIndex = String(zIndexCounter++);
     }
 
     function makeWindow(id, title, width = 420, height = 280, options = {}) {
@@ -984,12 +1119,10 @@
         taskBtn.addEventListener('click', () => {
           if (app.el.classList.contains('hidden')) {
             openWindow(id);
+          } else if (document.querySelector('.window.active')?.dataset.id === id) {
+            minimizeWindow(id);
           } else {
-            if (document.querySelector('.window.active')?.dataset.id === id) {
-              minimizeWindow(id);
-            } else {
-              setActiveWindow(id);
-            }
+            setActiveWindow(id);
           }
         });
         taskbarButtons.appendChild(taskBtn);
@@ -1072,7 +1205,7 @@
             <li>Start menu shortcuts</li>
             <li>Notepad</li>
             <li>Calculator</li>
-            <li>Fake web browser</li>
+            <li>Internet Explorer</li>
             <li>Classic Win95 design</li>
           </ul>
           <p style="margin-top: 18px;">Enjoy your retro desktop!</p>
@@ -1141,8 +1274,7 @@ The memories were unforgettable.</textarea>
       let pending = null;
       let op = null;
 
-      const buttons = app.body.querySelectorAll('.calc-btn');
-      buttons.forEach(btn => {
+      app.body.querySelectorAll('.calc-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           const value = btn.textContent.trim();
 
@@ -1164,7 +1296,7 @@ The memories were unforgettable.</textarea>
               const a = Number(pending);
               const b = Number(current);
               let result;
-              switch(op) {
+              switch (op) {
                 case '+': result = a + b; break;
                 case '-': result = a - b; break;
                 case '×': result = a * b; break;
@@ -1183,7 +1315,7 @@ The memories were unforgettable.</textarea>
               const a = Number(pending);
               const b = Number(current);
               let result;
-              switch(op) {
+              switch (op) {
                 case '+': result = a + b; break;
                 case '-': result = a - b; break;
                 case '×': result = a * b; break;
@@ -1255,7 +1387,7 @@ The memories were unforgettable.</textarea>
               <div class="drive-row"><span class="drive-icon"></span> <span>3½ Floppy (A:)</span></div>
               <div class="drive-row"><span class="drive-icon"></span> <span>(C:)</span></div>
               <div class="drive-row"><span class="drive-icon"></span> <span>(D:)</span></div>
-              <div style="margin-top: 12px;">
+              <div style="margin-top:12px;">
                 <strong>Summary</strong><br>
                 Total size: 128 MB<br>
                 Free space: 26 MB
@@ -1314,6 +1446,172 @@ The memories were unforgettable.</textarea>
       attachResize(app.el);
     }
 
+    function createMinesweeperWindow() {
+      const app = makeWindow('minesweeper', 'Minesweeper', 270, 360, { left: '440px', top: '170px' });
+      app.body.innerHTML = `
+        <div class="game-window">
+          <div class="game-toolbar">
+            <span><strong>Minesweeper</strong></span>
+            <button class="win-btn" id="mineReset" title="New Game">↻</button>
+          </div>
+          <div class="game-content">
+            <div id="minesweeperBoard" class="minesweeper-board"></div>
+          </div>
+        </div>
+      `;
+
+      const boardEl = app.body.querySelector('#minesweeperBoard');
+      const resetBtn = app.body.querySelector('#mineReset');
+      const size = 9;
+      const mines = 10;
+      let board = [];
+
+      function createBoard() {
+        board = Array.from({ length: size }, () => Array.from({ length: size }, () => ({
+          mine: false,
+          revealed: false,
+          flagged: false,
+          adjacent: 0
+        })));
+
+        const positions = [];
+        for (let i = 0; i < size * size; i++) positions.push(i);
+        for (let i = positions.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [positions[i], positions[j]] = [positions[j], positions[i]];
+        }
+
+        for (let i = 0; i < mines; i++) {
+          const index = positions[i];
+          const row = Math.floor(index / size);
+          const col = index % size;
+          board[row][col].mine = true;
+        }
+
+        for (let r = 0; r < size; r++) {
+          for (let c = 0; c < size; c++) {
+            if (!board[r][c].mine) {
+              let count = 0;
+              for (let rr = -1; rr <= 1; rr++) {
+                for (let cc = -1; cc <= 1; cc++) {
+                  const nr = r + rr;
+                  const nc = c + cc;
+                  if (nr >= 0 && nr < size && nc >= 0 && nc < size && board[nr][nc].mine) count++;
+                }
+              }
+              board[r][c].adjacent = count;
+            }
+          }
+        }
+      }
+
+      function renderBoard() {
+        boardEl.innerHTML = '';
+        for (let r = 0; r < size; r++) {
+          for (let c = 0; c < size; c++) {
+            const cell = document.createElement('button');
+            cell.className = 'cell';
+            cell.dataset.row = r;
+            cell.dataset.col = c;
+            if (board[r][c].revealed) cell.classList.add('revealed');
+            if (board[r][c].flagged) cell.classList.add('flagged');
+            if (board[r][c].revealed && board[r][c].mine) cell.classList.add('mine');
+
+            if (board[r][c].revealed && !board[r][c].mine && board[r][c].adjacent > 0) {
+              cell.textContent = board[r][c].adjacent;
+              cell.style.color = ['#000080', '#008000', '#ff0000', '#000080', '#800000', '#008080', '#000', '#666'][board[r][c].adjacent - 1] || '#000';
+            } else if (board[r][c].revealed && board[r][c].mine) {
+              cell.textContent = '*';
+            } else if (board[r][c].flagged) {
+              cell.textContent = '⚑';
+            }
+
+            cell.addEventListener('click', () => revealCell(r, c));
+            cell.addEventListener('contextmenu', e => {
+              e.preventDefault();
+              if (board[r][c].revealed) return;
+              board[r][c].flagged = !board[r][c].flagged;
+              renderBoard();
+            });
+
+            boardEl.appendChild(cell);
+          }
+        }
+      }
+
+      function revealCell(r, c) {
+        if (board[r][c].revealed || board[r][c].flagged) return;
+
+        if (board[r][c].mine) {
+          board[r][c].revealed = true;
+          revealAllMines();
+          renderBoard();
+          setTimeout(() => alert('Boom! You hit a mine.'), 80);
+          return;
+        }
+
+        floodReveal(r, c);
+        renderBoard();
+
+        const won = board.flat().every(cell => (cell.mine && cell.flagged) || (!cell.mine && cell.revealed));
+        if (won) {
+          setTimeout(() => alert('You cleared the minefield!'), 80);
+        }
+      }
+
+      function revealAllMines() {
+        for (let r = 0; r < size; r++) {
+          for (let c = 0; c < size; c++) {
+            if (board[r][c].mine) board[r][c].revealed = true;
+          }
+        }
+      }
+
+      function floodReveal(r, c) {
+        if (r < 0 || r >= size || c < 0 || c >= size) return;
+        if (board[r][c].revealed || board[r][c].flagged) return;
+        board[r][c].revealed = true;
+        if (board[r][c].adjacent !== 0) return;
+        for (let rr = -1; rr <= 1; rr++) {
+          for (let cc = -1; cc <= 1; cc++) {
+            if (rr === 0 && cc === 0) continue;
+            floodReveal(r + rr, c + cc);
+          }
+        }
+      }
+
+      resetBtn.addEventListener('click', () => {
+        createBoard();
+        renderBoard();
+      });
+
+      createBoard();
+      renderBoard();
+      attachResize(app.el);
+    }
+
+    function createSolitaireWindow() {
+      const app = makeWindow('solitaire', 'Solitaire', 340, 320, { left: '520px', top: '240px' });
+      app.body.innerHTML = `
+        <div class="game-window">
+          <div class="game-toolbar">
+            <span><strong>Solitaire</strong></span>
+            <button class="win-btn" title="New Game">↻</button>
+          </div>
+          <div class="game-content">
+            <div class="solitaire-board">
+              <div class="solitaire-pile"><div class="card red">A</div></div>
+              <div class="solitaire-pile"><div class="card black">K</div></div>
+              <div class="solitaire-pile"><div class="card red">Q</div></div>
+              <div class="solitaire-pile"><div class="card black">J</div></div>
+              <div class="solitaire-pile"><div class="card red">7</div></div>
+            </div>
+          </div>
+        </div>
+      `;
+      attachResize(app.el);
+    }
+
     function setupDesktopIcons() {
       createDesktopIcon(16, 16, 'My Computer', 'mycomputer', 'icon-computer');
       createDesktopIcon(16, 84, 'My Documents', 'documents', 'icon-folder');
@@ -1321,6 +1619,8 @@ The memories were unforgettable.</textarea>
       createDesktopIcon(16, 220, 'Internet Explorer', 'ie', 'icon-browser');
       createDesktopIcon(16, 288, 'Notepad', 'notepad', 'icon-notepad');
       createDesktopIcon(16, 356, 'Calculator', 'calc', 'icon-calc');
+      createDesktopIcon(16, 424, 'Minesweeper', 'minesweeper', 'icon-game');
+      createDesktopIcon(16, 492, 'Solitaire', 'solitaire', 'icon-game');
     }
 
     function setupStartMenu() {
@@ -1355,6 +1655,8 @@ The memories were unforgettable.</textarea>
       if (key === 'mycomputer' && !appMap.has('mycomputer')) createExplorerWindow();
       if (key === 'recycle' && !appMap.has('recycle')) createRecycleWindow();
       if (key === 'documents' && !appMap.has('documents')) createDocumentsWindow();
+      if (key === 'minesweeper' && !appMap.has('minesweeper')) createMinesweeperWindow();
+      if (key === 'solitaire' && !appMap.has('solitaire')) createSolitaireWindow();
 
       const app = appMap.get(key);
       if (app) openWindow(key);
@@ -1370,6 +1672,8 @@ The memories were unforgettable.</textarea>
     createExplorerWindow();
     createRecycleWindow();
     createDocumentsWindow();
+    createMinesweeperWindow();
+    createSolitaireWindow();
 
     document.querySelectorAll('.window').forEach(el => {
       const id = el.dataset.id;
@@ -1384,6 +1688,8 @@ The memories were unforgettable.</textarea>
     openApp('mycomputer');
     openApp('recycle');
     openApp('documents');
+    openApp('minesweeper');
+    openApp('solitaire');
 
     document.querySelectorAll('.window').forEach(win => {
       const id = win.dataset.id;
@@ -1394,6 +1700,8 @@ The memories were unforgettable.</textarea>
       if (id === 'mycomputer') win.style.left = '400px';
       if (id === 'recycle') win.style.left = '360px';
       if (id === 'documents') win.style.left = '520px';
+      if (id === 'minesweeper') win.style.left = '620px';
+      if (id === 'solitaire') win.style.left = '680px';
     });
 
     document.querySelectorAll('.window').forEach(win => {

@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Windows 95 Desktop</title>
+  <style>
+    :root {
+      --win95-blue: #000080;
+      --win95-blue-light: #1084d0;
+      --win95-gray-1: #c0c0c0;
+      --win95-gray-2: #d4d0c8;
+      --win95-gray-3: #808080;
+      --win95-gray-4: #ffffff;
+      --win95-gray-5: #000000;
+      --win95-taskbar: #c0c0c0;
+      --win95-btn-face: #dfdfdf;
+      --win95-btn-shadow: #808080;
+      --win95-btn-highlight: #ffffff;
+      --win95-wallpaper-1: #008080;
+      --win95-wallpaper-2: #0a8b8b;
+    }
+
+    * {
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: "MS Sans Serif", "Segoe UI", Tahoma, sans-serif;
+      background: #000;
+      color: #000;
+    }
+
+    body {
+      background: linear-gradient(180deg, var(--win95-wallpaper-1) 0%, var(--win95-wallpaper-2) 100%);
+      position: relative;
+    }
+
+    #desktop {
+      position: absolute;
+      inset: 0 0 32px 0;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.0) 35%, rgba(0,0,0,0.05) 100%);
+    }
+
+    .desktop-icon {
+      position: absolute;
+      width: 72px;
+      text-align: center;
+      color: #fff;
+      font-size: 11px;
+      line-height: 1.1;
+      text-shadow: 1px 1px 0 #000;
+      cursor: pointer;
+      padding: 4px 6px;
+      border: 1px solid transparent;
+    }
+
+    .desktop-icon.selected {
+      background: rgba(0,0,0,0.12);
+      border: 1px dotted #fff;
+    }
+
+    .desktop-icon .icon {
+      width: 32px;
+      height: 32px;
+      margin: 0 auto 4px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(1px 1px 0 rgba(0,0,0,0.5));
+      font-size: 28px;
+      position: relative;
+    }
+
+    .icon-folder::before {
+      content: "";
+      position: absolute;
+      width: 24px;
+      height: 18px;
+      background: #d4a33a;
+      border: 2px solid #d8b35d;
+      border-radius: 2px;
+      transform: translateY(4px);
+      box-shadow: inset 0 -6px 0 rgba(0,0,0,0.08);
+    }
+
+    .icon-folder::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 8px;
+      background: #efc666;
+      border: 2px solid #d8b35d;
+      border-bottom: none;
+      border-radius: 2px 2px 0 0;
+      transform: translate(-2px, -9px);
+    }
+
+    .icon-doc::before {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 24px;
+      background: #f3f3f3;
+      border: 1px solid rgba(0,0,0,0.4);
+      box-shadow: inset 0 0 0 1px #fff;
+      transform: translateY(2px);
+    }
+
+    .icon-doc::after {
+      content: "";
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #efefef;
+      border-left: 1px solid rgba(0,0,0,0.35);
+      border-top: 1px solid rgba(0,0,0,0.35);
+      transform: translate(8px, -7px);
+    }
+
+    .icon-computer::before {
+      content: "";
+      position: absolute;
+      width: 24px;
+      height: 18px;
+      background: #c0c0c0;
+      border: 2px solid #5a5a5a;
+      border-top-color: #fff;
+      border-left-color: #fff;
+      box-shadow: inset -2px -2px 0 #848484;
+      transform: translateY(4px);
+    }
+
+    .icon-computer::after {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 6px;
+      background: #c0c0c0;
+      border: 2px solid #5a5a5a;
+      border-top: none;
+      transform: translateY(22px);
+    }
+
+    .icon-bin::before {
+      content: "";
+      position: absolute;
+      width: 22px;
+      height: 20px;
+      background: #d9d9d9;
+      border: 2px solid #666;
+      border-top: none;
+      transform: translateY(6px);
+      box-shadow: inset 0 0 0 2px #fff;
+    }
+
+    .icon-bin::after {
+      content: "";
+      position: absolute;
+      width: 22px;
+      height: 5px;
+      background: #d9d9d9;
+      border: 2px solid #666;
+      border-bottom: none;
+      transform: translateY(0px);
+    }
+
+    .icon-browser::before {
+      content: "";
+      position: absolute;
+      width: 24px;
+      height: 18px;
+      background: linear-gradient(#3089ff, #1a62d7);
+      border: 2px solid #1d1d1d;
+      border-top-color: #fff;
+      border-left-color: #fff;
+      transform: translateY(4px);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.4);
+    }
+
+    .icon-browser::after {
+      content: "e";
+      position: absolute;
+      font-weight: bold;
+      color: #fff;
+      font-size: 16px;
+      transform: translateY(-2px);
+      text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+    }
+
+    .icon-calc::before {
+      content: "";
+      position: absolute;
+      width: 22px;
+      height: 26px;
+      background: #d9d9d9;
+      border: 2px solid #666;
+      box-shadow: inset 1px 1px 0 #fff;
+      transform: translateY(2px);
+    }
+
+    .icon-calc::after {
+      content: "±";
+      position: absolute;
+      color: #000;
+      font-size: 18px;
+      font-weight: bold;
+      transform: translateY(-2px);
+    }
+
+    .icon-notepad::before {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 24px;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.4);
+      transform: translateY(1px);
+    }
+
+    .icon-notepad::after {
+      content: "";
+      position: absolute;
+      width: 12px;
+      height: 2px;
+      background: #bcbcbc;
+      transform: translateY(-8px);
+      box-shadow: 0 4px 0 #bcbcbc, 0 8px 0 #bcbcbc;
+    }
+
+    .window {
+      position: absolute;
+      background: var(--win95-gray-2);
+      border: 2px solid #000;
+      border-top-color: #fff;
+      border-left-color: #fff;
+      box-shadow: 2px 2px 0 rgba(0,0,0,0.4);
+      min-width: 220px;
+      min-height: 150px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .window.active {
+      box-shadow: 3px 3px 0 rgba(0,0,0,0.5);
+    }
+
+    .title-bar {
+      height: 26px;
+      background: linear-gradient(90deg, #000080, #1084d0);
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 6px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: move;
+      letter-spacing: 0.3px;
+    }
+
+    .title-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .window-controls {
+      display: flex;
+      gap: 2px;
+      align-items: center;
+    }
+
+    .win-btn {
+      width: 18px;
+      height: 18px;
+      background: var(--win95-gray-1);
+      border-top: 2px solid #fff;
+      border-left: 2px solid #fff;
+      border-right: 2px solid #808080;
+      border-bottom: 2px solid #808080;
+      color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+      line-height: 1;
+      padding: 0;
+      margin: 0;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .win-btn:active {
+      border-top: 2px solid #808080;
+      border-left: 2px solid #808080;
+      border-right: 2px solid #fff;
+      border-bottom: 2px solid #fff;
+    }
+
+    .window-body {
+      flex: 1;
+      background: var(--win95-gray-2);
+      padding: 8px;
+      overflow: auto;
+    }
+
+    .about-box {
+      border: 1px solid #000;
+      background: #fff;
+      padding: 12px;
+      height: 100%;
+      overflow: auto;
+      line-height: 1.5;
+      font-size: 12px;
+    }
+
+    .about-logo {
+      font-size: 26px;
+      font-weight: bold;
+      color: var(--win95-blue);
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .browser {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      background: #fff;
+      border: 2px inset #c0c0c0;
+    }
+
+    .browser-toolbar {
+      background: #efefef;
+      border-bottom: 1px solid #808080;
+      padding: 6px 8px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .address-bar {
+      flex: 1;
+      background: #fff;
+      border: 1px solid #7d7d7d;
+      padding: 3px 6px;
+      font-size: 12px;
+      color: #000;
+      min-width: 0;
+    }
+
+    .browser-page {
+      flex: 1;
+      background: #fff;
+      overflow: auto;
+      padding: 12px;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .browser-page h3 {
+      margin: 0 0 10px 0;
+      font-size: 18px;
+    }
+
+    .browser-page h4 {
+      margin: 10px 0 8px 0;
+      font-size: 13px;
+    }
+
+    .browser-page ul {
+      margin: 0 0 10px 18px;
+      padding: 0;
+    }
+
+    .browser-page a {
+      color: #000080;
+      text-decoration: underline;
+    }
+
+    .notepad {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      background: var(--win95-gray-2);
+    }
+
+    .notepad-toolbar {
+      background: #d4d0c8;
+      border-bottom: 1px solid #808080;
+      padding: 4px 4px 2px 4px;
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      font-size: 12px;
+    }
+
+    .notepad-textarea {
+      flex: 1;
+      width: 100%;
+      resize: none;
+      border: 2px inset #c0c0c0;
+      background: #fff;
+      padding: 8px;
+      font-family: "Courier New", monospace;
+      font-size: 13px;
+      outline: none;
+    }
+
+    .calculator {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      background: var(--win95-gray-2);
+      padding: 8px;
+    }
+
+    .calc-display {
+      background: #fff;
+      border: 2px inset #bdbdbd;
+      min-height: 48px;
+      padding: 8px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      font-family: "Courier New", monospace;
+      font-size: 22px;
+      font-weight: bold;
+      overflow: hidden;
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+    }
+
+    .calc-btn {
+      height: 34px;
+      border-top: 2px solid #fff;
+      border-left: 2px solid #fff;
+      border-right: 2px solid #808080;
+      border-bottom: 2px solid #808080;
+      background: var(--win95-btn-face);
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .calc-btn:active {
+      border-top: 2px solid #808080;
+      border-left: 2px solid #808080;
+      border-right: 2px solid #fff;
+      border-bottom: 2px solid #fff;
+    }
+
+    .calc-btn.wide {
+      grid-column: span 2;
+    }
+
+    .explorer {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      background: #fff;
+      border: 2px inset #c0c0c0;
+    }
+
+    .explorer-toolbar {
+      display: flex;
+      gap: 8px;
+      background: #efefef;
+      border-bottom: 1px solid #808080;
+      padding: 6px 8px;
+      font-size: 12px;
+    }
+
+    .explorer-body {
+      display: flex;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .explorer-sidebar {
+      width: 140px;
+      background: #f3f3f3;
+      border-right: 1px solid #808080;
+      padding: 8px;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .explorer-main {
+      flex: 1;
+      background: #fff;
+      overflow: auto;
+      padding: 10px;
+      font-size: 12px;
+    }
+
+    .drive-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 6px;
+      border: 1px solid transparent;
+      cursor: default;
+    }
+
+    .drive-row:hover {
+      background: #d9ebff;
+      border-color: #000080;
+    }
+
+    .drive-icon {
+      width: 18px;
+      height: 18px;
+      display: inline-block;
+      background: linear-gradient(#7d7d7d, #a1a1a1);
+      border: 1px solid #000;
+      position: relative;
+    }
+
+    .drive-icon::before {
+      content: "";
+      position: absolute;
+      inset: 4px 3px 3px 3px;
+      background: linear-gradient(#d9d9d9, #8c8c8c);
+    }
+
+    .taskbar {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 36px;
+      background: var(--win95-taskbar);
+      border-top: 2px solid #fff;
+      display: flex;
+      align-items: center;
+      padding: 2px 4px;
+      gap: 4px;
+      z-index: 999;
+    }
+
+    .start-btn {
+      height: 28px;
+      min-width: 94px;
+      background: linear-gradient(180deg, #f8f8f8, #d6d6d6);
+      border-top: 2px solid #fff;
+      border-left: 2px solid #fff;
+      border-right: 2px solid #808080;
+      border-bottom: 2px solid #808080;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      padding: 0 14px;
+      cursor: pointer;
+      font-size: 12px;
+      position: relative;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
+    }
+
+    .start-btn:active, .start-btn.active {
+      border-top: 2px solid #808080;
+      border-left: 2px solid #808080;
+      border-right: 2px solid #fff;
+      border-bottom: 2px solid #fff;
+    }
+
+    .start-logo {
+      width: 16px;
+      height: 16px;
+      margin-right: 6px;
+      background: linear-gradient(135deg, #ff0000 0%, #ff0000 45%, #000 45%, #000 100%);
+      position: relative;
+      border: 1px solid #000;
+      transform: rotate(45deg);
+      display: inline-block;
+    }
+
+    .taskbar-buttons {
+      display: flex;
+      flex: 1;
+      gap: 4px;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .task-btn {
+      height: 28px;
+      min-width: 130px;
+      max-width: 180px;
+      background: linear-gradient(180deg, #f7f7f7, #d6d6d6);
+      border-top: 2px solid #fff;
+      border-left: 2px solid #fff;
+      border-right: 2px solid #808080;
+      border-bottom: 2px solid #808080;
+      padding: 0 8px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      cursor: pointer;
+      font-size: 12px;
+      color: #000;
+    }
+
+    .task-btn.active {
+      border-top: 2px solid #808080;
+      border-left: 2px solid #808080;
+      border-right: 2px solid #fff;
+      border-bottom: 2px solid #fff;
+      background: linear-gradient(180deg, #ddd, #c0c0c0);
+    }
+
+    .taskbar-clock {
+      width: 92px;
+      height: 28px;
+      border-top: 2px solid #7b7b7b;
+      border-left: 2px solid #7b7b7b;
+      border-right: 2px solid #fff;
+      border-bottom: 2px solid #fff;
+      background: #d4d0c8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 0 6px;
+    }
+
+    .start-menu {
+      position: absolute;
+      left: 4px;
+      bottom: 38px;
+      width: 250px;
+      height: 360px;
+      background: var(--win95-gray-1);
+      border-top: 2px solid #fff;
+      border-left: 2px solid #fff;
+      border-right: 2px solid #808080;
+      border-bottom: 2px solid #808080;
+      display: none;
+      z-index: 1000;
+      overflow: hidden;
+    }
+
+    .start-menu.show {
+      display: flex;
+    }
+
+    .start-side {
+      width: 32px;
+      background: linear-gradient(180deg, #7a7a7a, #c0c0c0);
+      color: #fff;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 18px;
+      letter-spacing: 1px;
+    }
+
+    .start-items {
+      flex: 1;
+      background: #c0c0c0;
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .start-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 8px;
+      font-size: 12px;
+      cursor: pointer;
+      min-height: 24px;
+    }
+
+    .start-item:hover {
+      background: #000080;
+      color: #fff;
+    }
+
+    .start-item .mini-icon {
+      width: 16px;
+      height: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #000;
+      background: #d9d9d9;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .window-resize-handle {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, #808080 0%, #d9d9d9 35%, #fff 35%, #fff 100%);
+      border-top: 1px solid #000;
+      border-left: 1px solid #000;
+      cursor: nwse-resize;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <div id="desktop"></div>
+
+  <div id="taskbar" class="taskbar">
+    <div id="startBtn" class="start-btn">
+      <span class="start-logo"></span>
+      Start
+    </div>
+    <div id="taskbarButtons" class="taskbar-buttons"></div>
+    <div id="clock" class="taskbar-clock">12:00 PM</div>
+  </div>
+
+  <div id="startMenu" class="start-menu">
+    <div class="start-side">Start</div>
+    <div class="start-items">
+      <div class="start-item" data-app="mycomputer"><span class="mini-icon">💻</span> My Computer</div>
+      <div class="start-item" data-app="documents"><span class="mini-icon">📁</span> My Documents</div>
+      <div class="start-item" data-app="recycle"><span class="mini-icon">🗑</span> Recycle Bin</div>
+      <div class="start-item" data-app="ie"><span class="mini-icon">🌐</span> Internet Explorer</div>
+      <div class="start-item" data-app="notepad"><span class="mini-icon">📝</span> Notepad</div>
+      <div class="start-item" data-app="calc"><span class="mini-icon">🧮</span> Calculator</div>
+      <div class="start-item" data-app="about"><span class="mini-icon">ℹ</span> About</div>
+    </div>
+  </div>
+
+  <script>
+    const desktop = document.getElementById("desktop");
+    const taskbarButtons = document.getElementById("taskbarButtons");
+    const startBtn = document.getElementById("startBtn");
+    const startMenu = document.getElementById("startMenu");
+    const clock = document.getElementById("clock");
+
+    const appMap = new Map();
+    const appOrder = [];
+    let zIndexCounter = 10;
+
+    function updateClock() {
+      const now = new Date();
+      let h = now.getHours();
+      const m = now.getMinutes().toString().padStart(2, "0");
+      const suffix = h >= 12 ? "PM" : "AM";
+      h = h % 12 || 12;
+      clock.textContent = `${h}:${m} ${suffix}`;
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    function createDesktopIcon(x, y, label, appKey, iconClass) {
+      const icon = document.createElement("div");
+      icon.className = "desktop-icon";
+      icon.style.left = `${x}px`;
+      icon.style.top = `${y}px`;
+      icon.dataset.app = appKey;
+      icon.innerHTML = `
+        <div class="icon ${iconClass}"></div>
+        <div>${label}</div>
+      `;
+      icon.addEventListener("dblclick", () => openApp(appKey));
+      icon.addEventListener("click", () => {
+        document.querySelectorAll(".desktop-icon").forEach(el => el.classList.remove("selected"));
+        icon.classList.add("selected");
+      });
+      desktop.appendChild(icon);
+    }
+
+    function setActiveWindow(id) {
+      const wins = document.querySelectorAll(".window");
+      wins.forEach(win => win.classList.toggle("active", win.dataset.id === id));
+      const taskBtn = document.querySelector(`.task-btn[data-id="${id}"]`);
+      document.querySelectorAll(".task-btn").forEach(btn => btn.classList.toggle("active", btn === taskBtn));
+      const win = appMap.get(id);
+      if (win) {
+        win.el.style.zIndex = String(zIndexCounter++);
+      }
+    }
+
+    function makeWindow(id, title, width = 420, height = 280, options = {}) {
+      const el = document.createElement("div");
+      el.className = "window";
+      el.dataset.id = id;
+      el.style.width = `${width}px`;
+      el.style.height = `${height}px`;
+      el.style.left = options.left ?? "120px";
+      el.style.top = options.top ?? "80px";
+      el.classList.add("active");
+
+      const titleBar = document.createElement("div");
+      titleBar.className = "title-bar";
+      titleBar.innerHTML = `
+        <div class="title-text">${title}</div>
+        <div class="window-controls">
+          <button class="win-btn" data-action="minimize">_</button>
+          <button class="win-btn" data-action="maximize">□</button>
+          <button class="win-btn" data-action="close">✕</button>
+        </div>
+      `;
+      titleBar.querySelector('[data-action="close"]').addEventListener("click", () => closeWindow(id));
+      titleBar.querySelector('[data-action="maximize"]').addEventListener("click", () => toggleMaximize(id));
+      titleBar.querySelector('[data-action="minimize"]').addEventListener("click", () => minimizeWindow(id));
+      titleBar.addEventListener("pointerdown", startDrag);
+
+      const body = document.createElement("div");
+      body.className = "window-body";
+
+      const resizeHandle = document.createElement("div");
+      resizeHandle.className = "window-resize-handle";
+
+      el.appendChild(titleBar);
+      el.appendChild(body);
+      el.appendChild(resizeHandle);
+
+      document.body.appendChild(el);
+
+      const app = { id, title, el, body, minimized: false, maximized: false, restoreRect: null };
+      appMap.set(id, app);
+      appOrder.push(id);
+      updateTaskbar();
+      setActiveWindow(id);
+      return app;
+    }
+
+    function closeWindow(id) {
+      const app = appMap.get(id);
+      if (!app) return;
+      app.el.classList.add("hidden");
+      app.minimized = true;
+      updateTaskbar();
+    }
+
+    function openWindow(id) {
+      const app = appMap.get(id);
+      if (!app) return;
+      app.el.classList.remove("hidden");
+      app.minimized = false;
+      setActiveWindow(id);
+      updateTaskbar();
+    }
+
+    function minimizeWindow(id) {
+      const app = appMap.get(id);
+      if (!app) return;
+      app.minimized = true;
+      app.el.classList.add("hidden");
+      updateTaskbar();
+    }
+
+    function toggleMaximize(id) {
+      const app = appMap.get(id);
+      if (!app) return;
+
+      if (app.maximized) {
+        app.el.style.left = app.restoreRect.left;
+        app.el.style.top = app.restoreRect.top;
+        app.el.style.width = app.restoreRect.width;
+        app.el.style.height = app.restoreRect.height;
+        app.maximized = false;
+      } else {
+        app.restoreRect = {
+          left: app.el.style.left,
+          top: app.el.style.top,
+          width: app.el.style.width,
+          height: app.el.style.height
+        };
+        app.el.style.left = "0px";
+        app.el.style.top = "0px";
+        app.el.style.width = `${window.innerWidth}px`;
+        app.el.style.height = `${window.innerHeight - 36}px`;
+        app.maximized = true;
+      }
+    }
+
+    function updateTaskbar() {
+      taskbarButtons.innerHTML = "";
+      for (const id of appOrder) {
+        const app = appMap.get(id);
+        if (!app) continue;
+        if (app.el.classList.contains("hidden")) continue;
+
+        const taskBtn = document.createElement("div");
+        taskBtn.className = "task-btn";
+        taskBtn.dataset.id = id;
+        taskBtn.textContent = app.title;
+        taskBtn.addEventListener("click", () => {
+          if (app.el.classList.contains("hidden")) {
+            openWindow(id);
+          } else {
+            if (document.querySelector(".window.active")?.dataset.id === id) {
+              minimizeWindow(id);
+            } else {
+              setActiveWindow(id);
+            }
+          }
+        });
+        taskbarButtons.appendChild(taskBtn);
+      }
+
+      document.querySelectorAll(".task-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.id === document.querySelector(".window.active")?.dataset.id);
+      });
+    }
+
+    function startDrag(e) {
+      const titleBar = e.currentTarget;
+      const winEl = titleBar.closest(".window");
+      const app = appMap.get(winEl.dataset.id);
+      if (!app) return;
+
+      setActiveWindow(app.id);
+
+      const rect = winEl.getBoundingClientRect();
+      const offsetX = e.clientX - rect.left;
+      const offsetY = e.clientY - rect.top;
+
+      function move(ev) {
+        if (app.maximized) return;
+        winEl.style.left = `${ev.clientX - offsetX}px`;
+        winEl.style.top = `${ev.clientY - offsetY}px`;
+      }
+
+      function stop() {
+        document.removeEventListener("pointermove", move);
+        document.removeEventListener("pointerup", stop);
+      }
+
+      document.addEventListener("pointermove", move);
+      document.addEventListener("pointerup", stop);
+    }
+
+    function attachResize(winEl) {
+      const handle = winEl.querySelector(".window-resize-handle");
+      if (!handle) return;
+
+      handle.addEventListener("pointerdown", e => {
+        const app = appMap.get(winEl.dataset.id);
+        if (!app) return;
+        setActiveWindow(app.id);
+
+        const startX = e.clientX;
+        const startY = e.clientY;
+        const startW = parseFloat(winEl.style.width) || winEl.offsetWidth;
+        const startH = parseFloat(winEl.style.height) || winEl.offsetHeight;
+
+        function resize(ev) {
+          if (app.maximized) return;
+          let w = startW + (ev.clientX - startX);
+          let h = startH + (ev.clientY - startY);
+          winEl.style.width = `${Math.max(220, w)}px`;
+          winEl.style.height = `${Math.max(180, h)}px`;
+        }
+
+        function stop() {
+          document.removeEventListener("pointermove", resize);
+          document.removeEventListener("pointerup", stop);
+        }
+
+        document.addEventListener("pointermove", resize);
+        document.addEventListener("pointerup", stop);
+      });
+    }
+
+    function createAboutWindow() {
+      const app = makeWindow("about", "About", 420, 320, { left: "250px", top: "100px" });
+      app.body.innerHTML = `
+        <div class="about-box">
+          <div class="about-logo">Windows 95</div>
+          <div style="text-align:center; margin-bottom:12px; font-weight:bold;">Version 4.00.950</div>
+          <p><strong>Welcome to the Desktop Nostalgia experience.</strong></p>
+          <p>This simulation captures the classic look and feel of the Windows 95 desktop environment, including the Start menu, taskbar, and iconic window styling.</p>
+          <p>Features include:</p>
+          <ul>
+            <li>Draggable windows</li>
+            <li>Start menu shortcuts</li>
+            <li>Notepad</li>
+            <li>Calculator</li>
+            <li>Fake web browser</li>
+            <li>Classic Win95 design</li>
+          </ul>
+          <p style="margin-top: 18px;">Enjoy your retro desktop!</p>
+        </div>
+      `;
+      attachResize(app.el);
+    }
+
+    function createNotepadWindow() {
+      const app = makeWindow("notepad", "Untitled - Notepad", 440, 310, { left: "360px", top: "120px" });
+      app.body.innerHTML = `
+        <div class="notepad">
+          <div class="notepad-toolbar">
+            <span>File</span>
+            <span>Edit</span>
+            <span>Search</span>
+            <span>Help</span>
+          </div>
+          <textarea class="notepad-textarea" spellcheck="false">Welcome to the Windows 95 desktop!
+
+This is a recreation of a classic operating system experience.
+Try the Start menu, open programs, and explore the retro interface.
+
+The Internet was slow.
+The desktop was colorful.
+The memories were unforgettable.</textarea>
+        </div>
+      `;
+      attachResize(app.el);
+    }
+
+    function createCalculatorWindow() {
+      const app = makeWindow("calc", "Calculator", 240, 270, { left: "420px", top: "150px" });
+      app.body.innerHTML = `
+        <div class="calculator">
+          <div class="calc-display" id="calcDisplay">0</div>
+          <div class="calc-grid">
+            <button class="calc-btn">C</button>
+            <button class="calc-btn">±</button>
+            <button class="calc-btn">÷</button>
+            <button class="calc-btn">×</button>
+
+            <button class="calc-btn">7</button>
+            <button class="calc-btn">8</button>
+            <button class="calc-btn">9</button>
+            <button class="calc-btn">-</button>
+
+            <button class="calc-btn">4</button>
+            <button class="calc-btn">5</button>
+            <button class="calc-btn">6</button>
+            <button class="calc-btn">+</button>
+
+            <button class="calc-btn">1</button>
+            <button class="calc-btn">2</button>
+            <button class="calc-btn">3</button>
+            <button class="calc-btn">=</button>
+
+            <button class="calc-btn wide">0</button>
+            <button class="calc-btn">.</button>
+          </div>
+        </div>
+      `;
+
+      const display = app.body.querySelector("#calcDisplay");
+      let current = "0";
+      let pending = null;
+      let op = null;
+
+      const buttons = app.body.querySelectorAll(".calc-btn");
+      buttons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const value = btn.textContent.trim();
+
+          if (/\d|\./.test(value)) {
+            if (current === "0" && value !== ".") current = value;
+            else if (value === "." && current.includes(".")) return;
+            else current += value;
+            display.textContent = current;
+          } else if (value === "C") {
+            current = "0";
+            pending = null;
+            op = null;
+            display.textContent = current;
+          } else if (value === "±") {
+            current = String(Number(current) * -1);
+            display.textContent = current;
+          } else if (["+", "-", "×", "÷"].includes(value)) {
+            if (pending !== null && op) {
+              const a = Number(pending);
+              const b = Number(current);
+              let result;
+              switch(op) {
+                case "+": result = a + b; break;
+                case "-": result = a - b; break;
+                case "×": result = a * b; break;
+                case "÷": result = b === 0 ? "Error" : a / b; break;
+              }
+              current = String(result);
+              pending = current;
+              display.textContent = current;
+            } else {
+              pending = current;
+            }
+            op = value;
+            current = "0";
+          } else if (value === "=") {
+            if (pending !== null && op) {
+              const a = Number(pending);
+              const b = Number(current);
+              let result;
+              switch(op) {
+                case "+": result = a + b; break;
+                case "-": result = a - b; break;
+                case "×": result = a * b; break;
+                case "÷": result = b === 0 ? "Error" : a / b; break;
+              }
+              current = String(result);
+              pending = null;
+              op = null;
+              display.textContent = current;
+            }
+          }
+        });
+      });
+
+      attachResize(app.el);
+    }
+
+    function createBrowserWindow() {
+      const app = makeWindow("ie", "Internet Explorer", 620, 420, { left: "200px", top: "60px" });
+      app.body.innerHTML = `
+        <div class="browser">
+          <div class="browser-toolbar">
+            <button class="win-btn" style="width:16px;height:16px;">←</button>
+            <button class="win-btn" style="width:16px;height:16px;">→</button>
+            <button class="win-btn" style="width:16px;height:16px;">⟳</button>
+            <input class="address-bar" value="https://desktopnostalgia.com" />
+          </div>
+          <div class="browser-page">
+            <h3>Welcome to Desktop Nostalgia</h3>
+            <p>Relive the look and feel of the classic Windows 95 experience in your browser.</p>
+            <h4>Classic features</h4>
+            <ul>
+              <li>Retro desktop interface</li>
+              <li>Taskbar and Start menu</li>
+              <li>Old-school apps and tools</li>
+              <li>Windows 95-era personality</li>
+            </ul>
+            <p><a href="#">About this site</a> | <a href="#">Download classic apps</a> | <a href="#">Help</a></p>
+            <h4>Did you know?</h4>
+            <p>Windows 95 introduced the Start menu and taskbar, transforming the PC user experience forever.</p>
+          </div>
+        </div>
+      `;
+      attachResize(app.el);
+    }
+
+    function createExplorerWindow() {
+      const app = makeWindow("mycomputer", "My Computer", 420, 340, { left: "300px", top: "180px" });
+      app.body.innerHTML = `
+        <div class="explorer">
+          <div class="explorer-toolbar">
+            <span>File</span>
+            <span>Edit</span>
+            <span>View</span>
+            <span>Favorites</span>
+            <span>Tools</span>
+            <span>Help</span>
+          </div>
+          <div class="explorer-body">
+            <div class="explorer-sidebar">
+              <div><strong>System Folders</strong></div>
+              <div>Desktop</div>
+              <div>My Documents</div>
+              <div>My Computer</div>
+              <div>Control Panel</div>
+              <div>Printers</div>
+            </div>
+            <div class="explorer-main">
+              <div class="drive-row"><span class="drive-icon"></span> <span>3½ Floppy (A:)</span></div>
+              <div class="drive-row"><span class="drive-icon"></span> <span>(C:)</span></div>
+              <div class="drive-row"><span class="drive-icon"></span> <span>(D:)</span></div>
+              <div style="margin-top: 12px;">
+                <strong>Summary</strong><br>
+                Total size: 128 MB<br>
+                Free space: 26 MB
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      attachResize(app.el);
+    }
+
+    function createRecycleWindow() {
+      const app = makeWindow("recycle", "Recycle Bin", 420, 280, { left: "180px", top: "160px" });
+      app.body.innerHTML = `
+        <div class="about-box">
+          <div style="display:flex; align-items:center; margin-bottom:12px;">
+            <div style="font-size:30px; margin-right:10px;">🗑</div>
+            <div>
+              <strong>Recycle Bin</strong><br>
+              1 file(s) available
+            </div>
+          </div>
+          <table style="width:100%; border-collapse:collapse; font-size:12px;">
+            <tr>
+              <td style="border:1px solid #666; padding:4px;">Documents</td>
+              <td style="border:1px solid #666; padding:4px;">55 KB</td>
+            </tr>
+            <tr>
+              <td style="border:1px solid #666; padding:4px;">My Favorite Sites</td>
+              <td style="border:1px solid #666; padding:4px;">14 KB</td>
+            </tr>
+          </table>
+          <div style="margin-top:16px; display:flex; gap:8px;">
+            <button class="win-btn" style="height:26px; min-width:80px;">Empty</button>
+            <button class="win-btn" style="height:26px; min-width:80px;">Restore</button>
+          </div>
+        </div>
+      `;
+      attachResize(app.el);
+    }
+
+    function createDocumentsWindow() {
+      const app = makeWindow("documents", "My Documents", 360, 260, { left: "520px", top: "140px" });
+      app.body.innerHTML = `
+        <div class="about-box">
+          <div style="font-size:22px; margin-bottom:12px;">📁 My Documents</div>
+          <div style="line-height:2;">
+            <div>My Pictures</div>
+            <div>My Music</div>
+            <div>Resume.doc</div>
+            <div>Favorites.url</div>
+            <div>Readme.txt</div>
+          </div>
+        </div>
+      `;
+      attachResize(app.el);
+    }
+
+    function setupDesktopIcons() {
+      createDesktopIcon(16, 16, "My Computer", "mycomputer", "icon-computer");
+      createDesktopIcon(16, 84, "My Documents", "documents", "icon-folder");
+      createDesktopIcon(16, 152, "Recycle Bin", "recycle", "icon-bin");
+      createDesktopIcon(16, 220, "Internet Explorer", "ie", "icon-browser");
+      createDesktopIcon(16, 288, "Notepad", "notepad", "icon-notepad");
+      createDesktopIcon(16, 356, "Calculator", "calc", "icon-calc");
+    }
+
+    function setupStartMenu() {
+      document.querySelectorAll(".start-item").forEach(item => {
+        item.addEventListener("click", () => {
+          const appKey = item.dataset.app;
+          openApp(appKey);
+          startMenu.classList.remove("show");
+          startBtn.classList.remove("active");
+        });
+      });
+
+      startBtn.addEventListener("click", () => {
+        const isOpen = startMenu.classList.contains("show");
+        startMenu.classList.toggle("show", !isOpen);
+        startBtn.classList.toggle("active", !isOpen);
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!startMenu.contains(e.target) && !startBtn.contains(e.target)) {
+          startMenu.classList.remove("show");
+          startBtn.classList.remove("active");
+        }
+      });
+    }
+
+    function openApp(key) {
+      if (key === "about" && !appMap.has("about")) createAboutWindow();
+      if (key === "notepad" && !appMap.has("notepad")) createNotepadWindow();
+      if (key === "calc" && !appMap.has("calc")) createCalculatorWindow();
+      if (key === "ie" && !appMap.has("ie")) createBrowserWindow();
+      if (key === "mycomputer" && !appMap.has("mycomputer")) createExplorerWindow();
+      if (key === "recycle" && !appMap.has("recycle")) createRecycleWindow();
+      if (key === "documents" && !appMap.has("documents")) createDocumentsWindow();
+
+      const app = appMap.get(key);
+      if (app) {
+        openWindow(key);
+      }
+    }
+
+    setupDesktopIcons();
+    setupStartMenu();
+
+    createAboutWindow();
+    createNotepadWindow();
+    createCalculatorWindow();
+    createBrowserWindow();
+    createExplorerWindow();
+    createRecycleWindow();
+    createDocumentsWindow();
+
+    document.querySelectorAll(".window").forEach(el => {
+      const id = el.dataset.id;
+      const app = appMap.get(id);
+      if (app && app.el === el) {
+        attachResize(el);
+      }
+    });
+
+    openApp("about");
+    openApp("notepad");
+    openApp("calc");
+    openApp("ie");
+    openApp("mycomputer");
+    openApp("recycle");
+    openApp("documents");
+
+    document.querySelectorAll(".window").forEach(win => {
+      const id = win.dataset.id;
+      if (id === "about") win.style.left = "170px";
+      if (id === "notepad") win.style.left = "330px";
+      if (id === "calc") win.style.left = "500px";
+      if (id === "ie") win.style.left = "220px";
+      if (id === "mycomputer") win.style.left = "400px";
+      if (id === "recycle") win.style.left = "360px";
+      if (id === "documents") win.style.left = "520px";
+    });
+
+    document.querySelectorAll(".window").forEach(win => {
+      win.addEventListener("pointerdown", () => setActiveWindow(win.dataset.id));
+    });
+  </script>
+</body>
+</html>

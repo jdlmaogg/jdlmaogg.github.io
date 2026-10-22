@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Desktop Nostalgia</title>
+  <style>
+    :root {
+      --bg1: #07111f;
+      --bg2: #0e1d33;
+      --panel: rgba(255,255,255,0.08);
+      --panel-border: rgba(255,255,255,0.18);
+      --text: #ebf4ff;
+      --accent: #7ad6ff;
+      --accent-2: #1ea5ff;
+      --win95-blue: #000080;
+      --win95-gray: #c0c0c0;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background: radial-gradient(circle at top, #163357 0%, var(--bg2) 30%, var(--bg1) 100%);
+      color: var(--text);
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero {
+      width: min(820px, 90vw);
+      padding: 42px 32px;
+      background: rgba(12, 20, 32, 0.85);
+      border: 2px solid var(--panel-border);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+      backdrop-filter: blur(8px);
+      text-align: center;
+    }
+
+    .brand {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 8px 14px;
+      background: linear-gradient(180deg, #dfe9ff, #b8cbff);
+      color: #111;
+      border: 2px solid #fff;
+      box-shadow: 4px 4px 0 rgba(0,0,0,0.35);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+
+    h1 {
+      margin: 0 0 18px 0;
+      font-size: clamp(2.3rem, 5vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -0.05em;
+    }
+
+    p {
+      margin: 0 auto 28px auto;
+      max-width: 650px;
+      color: rgba(235,244,255,0.82);
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      line-height: 1.6;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 220px;
+      height: 52px;
+      padding: 0 28px;
+      text-decoration: none;
+      color: #000;
+      background: linear-gradient(180deg, #fefefe, #d7d7d7);
+      border-top: 2px solid #fff;
+      border-left: 2px solid #fff;
+      border-right: 2px solid #7a7a7a;
+      border-bottom: 2px solid #7a7a7a;
+      font-weight: 700;
+      font-size: 18px;
+      box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+      transition: transform 0.15s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn.primary {
+      background: linear-gradient(180deg, #d4f0ff, #8bd2ff);
+    }
+
+    .btn.secondary {
+      background: linear-gradient(180deg, #ffffff, #d1d7df);
+    }
+  </style>
+</head>
+<body>
+  <main class="hero">
+    <div class="brand">Desktop Nostalgia</div>
+    <h1>Windows 95, but online.</h1>
+    <p>
+      Relive the classic charm of the early internet age with a retro desktop experience,
+      complete with the Start menu, taskbar, icons, and old-school apps.
+    </p>
+
+    <div class="actions">
+      <a class="btn primary" href="/win95/">Launch the Desktop</a>
+      <a class="btn secondary" href="https://desktopnostalgia.com" target="_blank" rel="noreferrer">Visit the Site</a>
+    </div>
+  </main>
+</body>
+</html>

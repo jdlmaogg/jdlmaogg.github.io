@@ -6,19 +6,19 @@
     <title>Windows 95 Desktop</title>
     <style>
       :root {
-        --bg-deep: #000000;
-        --bg-mid: #071f2e;
-        --shell-gray: #c0c0c0;
-        --shell-dark: #808080;
-        --shell-light: #ffffff;
-        --shell-shadow: rgba(0, 0, 0, 0.35);
-        --tahoma-blue: #000080;
-        --tahoma-blue-light: #1084d0;
-        --taskbar: #c0c0c0;
-        --desktop-walpaper-1: #008080;
-        --desktop-walpaper-2: #0c7f7f;
-        --desktop-walpaper-3: #0a6a6a;
-        --selection: rgba(0, 0, 0, 0.12);
+        --win95-blue: #000080;
+        --win95-blue-light: #1084d0;
+        --win95-gray-1: #c0c0c0;
+        --win95-gray-2: #d4d0c8;
+        --win95-gray-3: #808080;
+        --win95-gray-4: #ffffff;
+        --win95-gray-5: #000000;
+        --win95-taskbar: #c0c0c0;
+        --win95-btn-face: #dfdfdf;
+        --win95-shadow: rgba(0, 0, 0, 0.35);
+        --win95-wallpaper-1: #008080;
+        --win95-wallpaper-2: #0c7f7f;
+        --win95-wallpaper-3: #0a6a6a;
       }
 
       * {
@@ -37,12 +37,29 @@
         font-family: "MS Sans Serif", "Tahoma", sans-serif;
         background: #000;
         color: #000;
-        text-rendering: geometricPrecision;
+        cursor: default;
       }
 
       body {
-        background: linear-gradient(180deg, var(--desktop-walpaper-1) 0%, var(--desktop-walpaper-2) 30%, var(--desktop-walpaper-3) 100%);
         position: relative;
+        background:
+          linear-gradient(180deg, var(--win95-wallpaper-1) 0%, var(--win95-wallpaper-2) 30%, var(--win95-wallpaper-3) 100%);
+      }
+
+      body::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(rgba(255,255,255,0.02), rgba(255,255,255,0.02)),
+          repeating-linear-gradient(
+            0deg,
+            rgba(0,0,0,0.02),
+            rgba(0,0,0,0.02) 1px,
+            transparent 1px,
+            transparent 2px
+          );
+        pointer-events: none;
       }
 
       .boot-screen {
@@ -66,7 +83,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 14px;
+        gap: 18px;
         color: white;
         text-align: center;
         transform: scale(1.02);
@@ -74,8 +91,8 @@
       }
 
       .boot-logo {
-        width: 190px;
-        height: 58px;
+        width: 205px;
+        height: 62px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -92,12 +109,12 @@
 
       .boot-label {
         font-size: 18px;
-        letter-spacing: 0.20em;
+        letter-spacing: 0.2em;
         text-transform: uppercase;
         color: rgba(230, 240, 255, 0.9);
         display: inline-flex;
         align-items: center;
-        gap: 6px;
+        gap: 8px;
       }
 
       .boot-cursor {
@@ -339,11 +356,11 @@
 
       .window {
         position: absolute;
-        background: #d4d0c8;
+        background: var(--win95-gray-2);
         border: 2px solid #000;
         border-top-color: #fff;
         border-left-color: #fff;
-        box-shadow: 2px 2px 0 rgba(0,0,0,0.35);
+        box-shadow: 2px 2px 0 var(--win95-shadow);
         min-width: 220px;
         min-height: 150px;
         display: flex;
@@ -386,7 +403,7 @@
       .win-btn {
         width: 18px;
         height: 18px;
-        background: #c0c0c0;
+        background: var(--win95-gray-1);
         border-top: 2px solid #fff;
         border-left: 2px solid #fff;
         border-right: 2px solid #808080;
@@ -410,7 +427,7 @@
 
       .window-body {
         flex: 1;
-        background: #d4d0c8;
+        background: var(--win95-gray-2);
         padding: 8px;
         overflow: auto;
       }
@@ -481,14 +498,14 @@
         display: flex;
         flex-direction: column;
         height: 100%;
-        background: #d4d0c8;
+        background: var(--win95-gray-2);
       }
 
       .notepad-toolbar {
         display: flex;
         gap: 6px;
         align-items: center;
-        background: #d4d0c8;
+        background: var(--win95-gray-2);
         border-bottom: 1px solid #808080;
         padding: 4px;
         font-size: 12px;
@@ -511,7 +528,7 @@
         flex-direction: column;
         height: 100%;
         padding: 8px;
-        background: #d4d0c8;
+        background: var(--win95-gray-2);
       }
 
       .calc-display {
@@ -541,7 +558,7 @@
         border-left: 2px solid #fff;
         border-right: 2px solid #808080;
         border-bottom: 2px solid #808080;
-        background: #dfdfdf;
+        background: var(--win95-btn-face);
         font-weight: 700;
         font-size: 16px;
         cursor: pointer;
@@ -631,7 +648,7 @@
         display: flex;
         flex-direction: column;
         height: 100%;
-        background: #d4d0c8;
+        background: var(--win95-gray-2);
       }
 
       .game-toolbar {
@@ -743,7 +760,7 @@
         right: 0;
         bottom: 0;
         height: 36px;
-        background: var(--taskbar);
+        background: var(--win95-taskbar);
         border-top: 2px solid #fff;
         display: flex;
         align-items: center;
@@ -846,7 +863,7 @@
         bottom: 38px;
         width: 270px;
         height: 390px;
-        background: #c0c0c0;
+        background: var(--win95-gray-1);
         border-top: 2px solid #fff;
         border-left: 2px solid #fff;
         border-right: 2px solid #808080;
@@ -966,7 +983,6 @@
       const startMenu = document.getElementById('startMenu');
       const clock = document.getElementById('clock');
       const appMap = new Map();
-      const appOrder = [];
       let zIndexCounter = 10;
 
       function updateClock() {
@@ -1020,7 +1036,7 @@
 
       function focusWindow(win, appKey) {
         const allWins = document.querySelectorAll('.window');
-        allWins.forEach(w => w.style.zIndex = 1);
+        allWins.forEach(w => w.style.zIndex = '1');
         win.style.zIndex = String(zIndexCounter++);
         allWins.forEach(w => w.classList.remove('active'));
         win.classList.add('active');
@@ -1057,19 +1073,14 @@
         controls.forEach(btn => {
           btn.addEventListener('click', () => {
             const action = btn.dataset.action;
-            if (action === 'close') {
-              win.classList.add('hidden');
-              const taskBtn = document.querySelector(`.task-btn[data-app="${appKey}"]`);
-              if (taskBtn) taskBtn.classList.remove('active');
-            }
-            if (action === 'minimize') {
+            if (action === 'close' || action === 'minimize') {
               win.classList.add('hidden');
               const taskBtn = document.querySelector(`.task-btn[data-app="${appKey}"]`);
               if (taskBtn) taskBtn.classList.remove('active');
             }
             if (action === 'maximize') {
-              const current = win.style.width;
-              if (current === '100%' || win.style.width === 'calc(100vw - 40px)') {
+              const currentW = win.style.width;
+              if (currentW === '100%' || win.style.width === 'calc(100vw - 40px)') {
                 win.style.width = `${width}px`;
                 win.style.height = `${height}px`;
                 win.style.left = `${x}px`;
@@ -1106,9 +1117,8 @@
 
         window.addEventListener('mouseup', () => { dragState = null; });
 
-        const app = { title, window: win, taskBtn: null };
+        const app = { title, window: win };
         appMap.set(appKey, app);
-        if (!appOrder.includes(appKey)) appOrder.push(appKey);
         addTaskbarButton(appKey);
         focusWindow(win, appKey);
         return win;

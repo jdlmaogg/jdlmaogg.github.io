@@ -51,7 +51,7 @@
         display: inline-block;
         margin-bottom: 18px;
         padding: 8px 16px;
-        border: 2px solid #ffffff;
+        border: 2px solid #fff;
         background: linear-gradient(180deg, #eef5ff, #b8cbff);
         color: #111;
         font-size: 12px;
@@ -100,13 +100,13 @@
         border-right: 2px solid #7a7a7a;
         border-bottom: 2px solid #7a7a7a;
         background: linear-gradient(180deg, #fefefe, #d7d7d7);
-        box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
-        transition: transform 0.16s ease, box-shadow 0.16s ease;
+        box-shadow: 4px 4px 0 rgba(0,0,0,0.22);
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
       }
 
       .btn:hover {
         transform: translateY(-1px);
-        box-shadow: 5px 5px 0 rgba(0,0,0,0.24);
+        box-shadow: 6px 6px 0 rgba(0,0,0,0.26);
       }
 
       .btn.primary {
@@ -114,21 +114,25 @@
       }
 
       .btn.secondary {
-        background: linear-gradient(180deg, #ffffff, #d5dfe8);
+        background: linear-gradient(180deg, #fff, #d7dde7);
       }
     </style>
   </head>
   <body>
     <main class="shell">
-      <div class="badge">Desktop Nostalgia</div>
-      <h1>Windows 95, but online.</h1>
+      <div class="badge">Desktop nostalgia</div>
+      <h1>Retro desktop experience</h1>
       <p>
-        A browser-based retro desktop with a boot sequence, faux Windows 95 apps, and a built-in proxy layer for safely loading external pages into the mock browser.
+        A polished Windows 95-inspired landing page that opens into a desktop environment,
+        complete with taskbar, apps, and a proxy-aware browser demo.
       </p>
+
       <div class="actions">
-        <a class="btn primary" href="/win95/">Launch the Desktop</a>
-        <a class="btn secondary" href="/win95/?demo=proxy">Try the Proxy Demo</a>
+        <a class="btn primary" href="/win95/">Open desktop</a>
+        <a class="btn secondary" href="/win95/?demo=proxy">Open proxy demo</a>
       </div>
     </main>
+
+    <script src="./script.js" defer></script>
   </body>
 </html>

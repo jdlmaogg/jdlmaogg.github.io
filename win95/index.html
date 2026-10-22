@@ -7,18 +7,20 @@
     <style>
       :root {
         --win95-blue: #000080;
-        --win95-blue-light: #1084d0;
+        --win95-blue-alt: #1084d0;
         --win95-gray-1: #c0c0c0;
         --win95-gray-2: #d4d0c8;
         --win95-gray-3: #808080;
         --win95-gray-4: #ffffff;
         --win95-gray-5: #000000;
+        --win95-wallpaper-1: #008080;
+        --win95-wallpaper-2: #0f8a8a;
+        --win95-wallpaper-3: #0d7171;
+        --win95-shadow: rgba(0, 0, 0, 0.35);
         --win95-taskbar: #c0c0c0;
         --win95-btn-face: #dfdfdf;
-        --win95-shadow: rgba(0, 0, 0, 0.35);
-        --win95-wallpaper-1: #008080;
-        --win95-wallpaper-2: #0c7f7f;
-        --win95-wallpaper-3: #0a6a6a;
+        --win95-green: #1b5e20;
+        --win95-red: #b22222;
       }
 
       * {
@@ -30,9 +32,9 @@
       }
 
       html, body {
-        margin: 0;
         width: 100%;
         height: 100%;
+        margin: 0;
         overflow: hidden;
         font-family: "MS Sans Serif", "Tahoma", sans-serif;
         background: #000;
@@ -42,157 +44,55 @@
 
       body {
         position: relative;
-        background:
-          linear-gradient(180deg, var(--win95-wallpaper-1) 0%, var(--win95-wallpaper-2) 30%, var(--win95-wallpaper-3) 100%);
+        background: linear-gradient(180deg, var(--win95-wallpaper-1) 0%, var(--win95-wallpaper-2) 28%, var(--win95-wallpaper-3) 100%);
       }
 
       body::before {
         content: "";
         position: absolute;
         inset: 0;
+        pointer-events: none;
         background:
           linear-gradient(rgba(255,255,255,0.02), rgba(255,255,255,0.02)),
           repeating-linear-gradient(
             0deg,
-            rgba(0,0,0,0.02),
-            rgba(0,0,0,0.02) 1px,
+            rgba(0,0,0,0.025),
+            rgba(0,0,0,0.025) 1px,
             transparent 1px,
             transparent 2px
           );
-        pointer-events: none;
-      }
-
-      .boot-screen {
-        position: absolute;
-        inset: 0;
-        z-index: 99999;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: linear-gradient(180deg, #000 0%, #050a1a 100%);
-        transition: opacity 0.8s ease, visibility 0.8s ease;
-      }
-
-      body.booted .boot-screen {
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-      }
-
-      .boot-panel {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 18px;
-        color: white;
-        text-align: center;
-        transform: scale(1.02);
-        animation: bootPulse 2.2s ease-in-out infinite alternate;
-      }
-
-      .boot-logo {
-        width: 205px;
-        height: 62px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: linear-gradient(180deg, #1f52ff 0%, #000080 52%, #050d88 100%);
-        border: 2px solid #4e7aff;
-        box-shadow: inset 0 0 0 2px rgba(255,255,255,0.08), 0 0 18px rgba(94,147,255,0.42);
-        color: #f3f9ff;
-        font-size: 18px;
-        font-weight: 700;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
-      }
-
-      .boot-label {
-        font-size: 18px;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        color: rgba(230, 240, 255, 0.9);
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .boot-cursor {
-        display: inline-block;
-        width: 12px;
-        height: 18px;
-        background: #f2f7ff;
-        box-shadow: 0 0 0 1px rgba(0,0,0,0.4);
-        animation: blinkCursor 0.7s steps(1) infinite;
-      }
-
-      @keyframes blinkCursor {
-        0%, 50% { opacity: 1; }
-        50.01%, 100% { opacity: 0; }
-      }
-
-      @keyframes bootPulse {
-        from { transform: scale(0.98); opacity: 0.76; }
-        to { transform: scale(1.08); opacity: 1; }
       }
 
       #desktop {
         position: absolute;
         inset: 0 0 36px 0;
         overflow: hidden;
-        background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 35%, rgba(0,0,0,0.05) 100%);
       }
 
       .desktop-icon {
         position: absolute;
-        width: 76px;
-        padding: 4px 6px;
-        color: white;
+        width: 78px;
+        padding: 4px 5px;
+        color: #fff;
         text-align: center;
         font-size: 11px;
-        line-height: 1.15;
+        line-height: 1.1;
+        text-shadow: 1px 1px 0 rgba(0,0,0,0.85);
         cursor: pointer;
-        text-shadow: 1px 1px 0 rgba(0,0,0,0.8);
       }
 
       .desktop-icon.selected {
-        background: rgba(0,0,0,0.12);
+        background: rgba(0,0,0,0.14);
         border: 1px dotted #fff;
       }
 
       .desktop-icon .icon {
+        position: relative;
         width: 32px;
         height: 32px;
-        position: relative;
-        margin: 0 auto 4px;
+        margin: 0 auto 5px;
         display: block;
-        filter: drop-shadow(1px 1px 0 rgba(0,0,0,0.45));
-      }
-
-      .icon-folder::before {
-        content: "";
-        position: absolute;
-        left: 4px;
-        right: 4px;
-        bottom: 6px;
-        height: 18px;
-        background: #d4a33c;
-        border: 2px solid #d9b65e;
-        border-radius: 2px;
-        box-shadow: inset 0 -6px 0 rgba(0,0,0,0.06);
-      }
-
-      .icon-folder::after {
-        content: "";
-        position: absolute;
-        left: 5px;
-        top: 6px;
-        width: 20px;
-        height: 8px;
-        background: #efc76b;
-        border: 2px solid #d9b65e;
-        border-bottom: none;
-        border-radius: 2px 2px 0 0;
+        filter: drop-shadow(1px 1px 0 rgba(0,0,0,0.5));
       }
 
       .icon-computer::before {
@@ -203,10 +103,10 @@
         bottom: 8px;
         height: 18px;
         background: #c0c0c0;
-        border: 2px solid #696969;
+        border: 2px solid #666;
         border-top-color: #fff;
         border-left-color: #fff;
-        box-shadow: inset -2px -2px 0 rgba(0,0,0,0.18);
+        box-shadow: inset -2px -2px 0 rgba(0,0,0,0.16);
       }
 
       .icon-computer::after {
@@ -224,19 +124,16 @@
       .icon-doc::before {
         content: "";
         position: absolute;
-        left: 8px;
-        right: 8px;
-        top: 2px;
-        bottom: 2px;
+        inset: 2px 8px 2px 8px;
         background: #fff;
-        border: 1px solid rgba(0,0,0,0.45);
+        border: 1px solid rgba(0,0,0,0.4);
       }
 
       .icon-doc::after {
         content: "";
         position: absolute;
-        left: 16px;
-        top: 5px;
+        left: 15px;
+        top: 6px;
         width: 10px;
         height: 2px;
         background: #c0c0c0;
@@ -292,6 +189,28 @@
         font-weight: bold;
       }
 
+      .icon-notepad::before {
+        content: "";
+        position: absolute;
+        left: 8px;
+        right: 8px;
+        top: 4px;
+        bottom: 4px;
+        background: white;
+        border: 1px solid rgba(0,0,0,0.5);
+      }
+
+      .icon-notepad::after {
+        content: "";
+        position: absolute;
+        left: 13px;
+        top: 9px;
+        width: 12px;
+        height: 2px;
+        background: #bcbcbc;
+        box-shadow: 0 4px 0 #bcbcbc, 0 8px 0 #bcbcbc;
+      }
+
       .icon-calc::before {
         content: "";
         position: absolute;
@@ -309,30 +228,8 @@
         align-items: center;
         justify-content: center;
         color: #000;
+        font-weight: 700;
         font-size: 18px;
-        font-weight: bold;
-      }
-
-      .icon-notepad::before {
-        content: "";
-        position: absolute;
-        left: 8px;
-        right: 8px;
-        top: 4px;
-        bottom: 4px;
-        background: #fff;
-        border: 1px solid rgba(0,0,0,0.5);
-      }
-
-      .icon-notepad::after {
-        content: "";
-        position: absolute;
-        left: 13px;
-        top: 9px;
-        width: 12px;
-        height: 2px;
-        background: #bcbcbc;
-        box-shadow: 0 4px 0 #bcbcbc, 0 8px 0 #bcbcbc;
       }
 
       .icon-game::before {
@@ -347,24 +244,24 @@
       .icon-game::after {
         content: "✦";
         position: absolute;
-        left: 8px;
-        top: 7px;
+        left: 9px;
+        top: 8px;
         color: #b22222;
-        font-size: 18px;
-        font-weight: bold;
+        font-size: 17px;
+        font-weight: 700;
       }
 
       .window {
         position: absolute;
+        display: flex;
+        flex-direction: column;
+        min-width: 220px;
+        min-height: 150px;
         background: var(--win95-gray-2);
         border: 2px solid #000;
         border-top-color: #fff;
         border-left-color: #fff;
         box-shadow: 2px 2px 0 var(--win95-shadow);
-        min-width: 220px;
-        min-height: 150px;
-        display: flex;
-        flex-direction: column;
         overflow: hidden;
         z-index: 1;
       }
@@ -374,17 +271,17 @@
       }
 
       .title-bar {
-        height: 27px;
-        background: linear-gradient(90deg, #000080, #1084d0);
-        color: white;
-        font-size: 12px;
-        font-weight: 700;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        height: 27px;
         padding: 4px 6px 4px 8px;
+        color: white;
+        background: linear-gradient(90deg, #000080, #1084d0);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.2px;
         cursor: move;
-        letter-spacing: 0.3px;
       }
 
       .title-text {
@@ -396,25 +293,27 @@
 
       .window-controls {
         display: flex;
-        gap: 2px;
         align-items: center;
+        gap: 2px;
       }
 
       .win-btn {
         width: 18px;
         height: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         background: var(--win95-gray-1);
         border-top: 2px solid #fff;
         border-left: 2px solid #fff;
         border-right: 2px solid #808080;
         border-bottom: 2px solid #808080;
         color: #000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         font-size: 12px;
         font-weight: 700;
+        line-height: 1;
         padding: 0;
+        margin: 0;
         cursor: pointer;
       }
 
@@ -432,38 +331,91 @@
         overflow: auto;
       }
 
-      .about-box {
-        height: 100%;
-        border: 1px solid #000;
-        background: white;
-        padding: 12px;
-        line-height: 1.5;
-        font-size: 12px;
-      }
-
-      .about-logo {
-        font-size: 30px;
-        font-weight: 700;
-        text-align: center;
-        color: #000080;
-        margin-bottom: 10px;
-      }
-
-      .browser {
+      .explorer,
+      .browser,
+      .notepad,
+      .game-window {
         display: flex;
         flex-direction: column;
+        width: 100%;
         height: 100%;
-        background: white;
-        border: 2px inset #c0c0c0;
       }
 
-      .browser-toolbar {
+      .explorer {
+        border: 2px inset #c0c0c0;
+        background: white;
+      }
+
+      .explorer-toolbar,
+      .browser-toolbar,
+      .game-toolbar {
         display: flex;
         align-items: center;
         gap: 8px;
         padding: 6px 8px;
         background: #efefef;
         border-bottom: 1px solid #808080;
+        font-size: 12px;
+      }
+
+      .explorer-body {
+        display: flex;
+        flex: 1;
+        min-height: 0;
+      }
+
+      .explorer-sidebar {
+        width: 146px;
+        background: #f3f3f3;
+        border-right: 1px solid #808080;
+        padding: 8px;
+        font-size: 12px;
+        line-height: 1.8;
+      }
+
+      .drive-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 4px 6px;
+        border: 1px solid transparent;
+      }
+
+      .drive-row:hover {
+        background: #d9ebff;
+        border-color: #000080;
+      }
+
+      .drive-icon {
+        width: 18px;
+        height: 18px;
+        position: relative;
+        background: linear-gradient(#7e7e7e, #a0a0a0);
+        border: 1px solid #000;
+      }
+
+      .drive-icon::before {
+        content: "";
+        position: absolute;
+        inset: 4px 3px 3px 3px;
+        background: linear-gradient(#d8d8d8, #8d8d8d);
+      }
+
+      .explorer-main {
+        flex: 1;
+        padding: 10px;
+        overflow: auto;
+        font-size: 12px;
+      }
+
+      .explorer-main h3 {
+        margin-top: 0;
+        margin-bottom: 8px;
+      }
+
+      .browser {
+        border: 2px inset #c0c0c0;
+        background: white;
       }
 
       .address-bar {
@@ -472,14 +424,12 @@
         border: 1px solid #7a7a7a;
         padding: 3px 6px;
         font-size: 12px;
-        min-width: 0;
       }
 
       .browser-page {
         flex: 1;
-        padding: 12px;
-        background: white;
         overflow: auto;
+        padding: 12px;
         font-size: 12px;
         line-height: 1.6;
       }
@@ -495,60 +445,54 @@
       }
 
       .notepad {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
         background: var(--win95-gray-2);
       }
 
       .notepad-toolbar {
-        display: flex;
-        gap: 6px;
-        align-items: center;
+        padding: 4px;
         background: var(--win95-gray-2);
         border-bottom: 1px solid #808080;
-        padding: 4px;
         font-size: 12px;
       }
 
       .notepad-textarea {
         flex: 1;
         width: 100%;
+        resize: none;
         border: 2px inset #c0c0c0;
         background: white;
         padding: 8px;
-        resize: none;
-        outline: none;
         font-family: "Courier New", monospace;
         font-size: 13px;
+        outline: none;
       }
 
       .calculator {
         display: flex;
         flex-direction: column;
+        width: 100%;
         height: 100%;
-        padding: 8px;
         background: var(--win95-gray-2);
+        padding: 8px;
       }
 
       .calc-display {
-        background: white;
-        border: 2px inset #bdbdbd;
-        min-height: 46px;
-        padding: 8px;
-        margin-bottom: 8px;
         display: flex;
         align-items: center;
         justify-content: flex-end;
+        background: white;
+        border: 2px inset #bdbdbd;
+        min-height: 48px;
+        padding: 8px;
+        margin-bottom: 8px;
         font-family: "Courier New", monospace;
         font-size: 22px;
         font-weight: 700;
-        overflow: hidden;
       }
 
       .calc-grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 6px;
       }
 
@@ -575,90 +519,25 @@
         grid-column: span 2;
       }
 
-      .explorer {
-        display: flex;
-        flex-direction: column;
+      .about-box {
         height: 100%;
-        background: white;
-        border: 2px inset #c0c0c0;
-      }
-
-      .explorer-toolbar {
-        display: flex;
-        gap: 8px;
-        align-items: center;
-        background: #efefef;
-        border-bottom: 1px solid #808080;
-        padding: 6px 8px;
-        font-size: 12px;
-      }
-
-      .explorer-body {
-        display: flex;
-        flex: 1;
-        min-height: 0;
-      }
-
-      .explorer-sidebar {
-        width: 140px;
-        background: #f3f3f3;
-        border-right: 1px solid #808080;
-        padding: 8px;
-        font-size: 12px;
-        line-height: 1.8;
-      }
-
-      .drive-row {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 4px 6px;
-        border: 1px solid transparent;
-        cursor: default;
-      }
-
-      .drive-row:hover {
-        background: #d9ebff;
-        border-color: #000080;
-      }
-
-      .drive-icon {
-        width: 18px;
-        height: 18px;
-        background: linear-gradient(#7e7e7e, #a0a0a0);
         border: 1px solid #000;
-        position: relative;
-      }
-
-      .drive-icon::before {
-        content: "";
-        position: absolute;
-        inset: 4px 3px 3px 3px;
-        background: linear-gradient(#d8d8d8, #8d8d8d);
-      }
-
-      .explorer-main {
-        flex: 1;
-        padding: 10px;
-        overflow: auto;
+        background: white;
+        padding: 12px;
         font-size: 12px;
+        line-height: 1.5;
+      }
+
+      .about-logo {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--win95-blue);
+        text-align: center;
+        margin-bottom: 10px;
       }
 
       .game-window {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
         background: var(--win95-gray-2);
-      }
-
-      .game-toolbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: #efefef;
-        border-bottom: 1px solid #808080;
-        padding: 6px 8px;
-        font-size: 12px;
       }
 
       .game-content {
@@ -678,7 +557,6 @@
         border: 2px solid #fff;
         box-shadow: inset 2px 2px 0 #7a7a7a;
         padding: 4px;
-        font-family: "Courier New", monospace;
       }
 
       .cell {
@@ -692,25 +570,16 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-weight: 700;
         font-size: 12px;
+        font-weight: 700;
         cursor: pointer;
       }
 
       .cell.revealed {
-        background: #d4d0c8;
         border: 1px solid #808080;
+        background: #d4d0c8;
         box-shadow: inset 1px 1px 0 rgba(0,0,0,0.15);
         cursor: default;
-      }
-
-      .cell.mine {
-        background: #ffcbcb;
-        color: #a00;
-      }
-
-      .cell.flagged {
-        background: #ffd9d9;
       }
 
       .solitaire-board {
@@ -721,38 +590,43 @@
         width: 100%;
         max-width: 340px;
         min-height: 180px;
-        background: #1b5e20;
+        background: var(--win95-green);
         border: 2px solid #000;
         padding: 16px 12px;
         box-shadow: inset 2px 2px 0 rgba(255,255,255,0.25);
       }
 
       .solitaire-pile {
+        position: relative;
         width: 42px;
         height: 56px;
         border: 2px solid rgba(255,255,255,0.35);
         border-radius: 2px;
         background: rgba(255,255,255,0.12);
-        position: relative;
       }
 
       .card {
+        position: relative;
         width: 42px;
         height: 56px;
-        border: 2px solid #000;
-        border-radius: 3px;
-        background: white;
         display: flex;
         align-items: center;
         justify-content: center;
-        position: relative;
-        font-weight: 700;
+        border: 2px solid #000;
+        border-radius: 3px;
+        background: white;
         font-size: 18px;
+        font-weight: 700;
         box-shadow: 1px 1px 0 rgba(0,0,0,0.25);
       }
 
-      .card.red { color: #c00000; }
-      .card.black { color: #000; }
+      .card.red {
+        color: #c00000;
+      }
+
+      .card.black {
+        color: #000;
+      }
 
       .taskbar {
         position: absolute;
@@ -764,26 +638,27 @@
         border-top: 2px solid #fff;
         display: flex;
         align-items: center;
-        padding: 2px 4px;
         gap: 4px;
-        z-index: 999;
+        padding: 2px 4px;
+        z-index: 2000;
       }
 
       .start-btn {
         height: 28px;
         min-width: 94px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
         background: linear-gradient(180deg, #f8f8f8, #d6d6d6);
         border-top: 2px solid #fff;
         border-left: 2px solid #fff;
         border-right: 2px solid #808080;
         border-bottom: 2px solid #808080;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
         padding: 0 14px;
-        cursor: pointer;
         font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
       }
 
       .start-btn:active,
@@ -795,21 +670,20 @@
       }
 
       .start-logo {
+        display: inline-block;
         width: 15px;
         height: 15px;
-        margin-right: 6px;
-        background: linear-gradient(135deg, #ff0000 0%, #ff0000 45%, #000 45%, #000 100%);
         position: relative;
+        background: linear-gradient(135deg, #ff0000 0%, #ff0000 45%, #000 45%, #000 100%);
         border: 1px solid #000;
         transform: rotate(45deg);
-        display: inline-block;
       }
 
       .taskbar-buttons {
         display: flex;
-        flex: 1;
-        gap: 4px;
         align-items: center;
+        gap: 4px;
+        flex: 1;
         overflow: hidden;
       }
 
@@ -817,18 +691,17 @@
         min-width: 130px;
         max-width: 180px;
         height: 28px;
-        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
         padding: 0 8px;
         background: linear-gradient(180deg, #f7f7f7, #d6d6d6);
         border-top: 2px solid #fff;
         border-left: 2px solid #fff;
         border-right: 2px solid #808080;
         border-bottom: 2px solid #808080;
-        display: flex;
-        align-items: center;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
         font-size: 12px;
         cursor: pointer;
       }
@@ -844,14 +717,14 @@
       .taskbar-clock {
         width: 92px;
         height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #d4d0c8;
         border-top: 2px solid #7b7b7b;
         border-left: 2px solid #7b7b7b;
         border-right: 2px solid #fff;
         border-bottom: 2px solid #fff;
-        background: #d4d0c8;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         font-size: 12px;
         font-weight: 700;
         padding: 0 6px;
@@ -869,8 +742,7 @@
         border-right: 2px solid #808080;
         border-bottom: 2px solid #808080;
         display: none;
-        z-index: 1000;
-        overflow: hidden;
+        z-index: 3000;
       }
 
       .start-menu.show {
@@ -904,10 +776,10 @@
         display: flex;
         align-items: center;
         gap: 8px;
+        min-height: 24px;
         padding: 6px 8px;
         font-size: 12px;
         cursor: pointer;
-        min-height: 24px;
       }
 
       .start-item:hover {
@@ -929,17 +801,94 @@
 
       .window-resize-handle {
         position: absolute;
-        width: 12px;
-        height: 12px;
         right: 0;
         bottom: 0;
+        width: 12px;
+        height: 12px;
         background: linear-gradient(135deg, #808080 0%, #d9d9d9 35%, #fff 35%, #fff 100%);
         border-top: 1px solid #000;
         border-left: 1px solid #000;
         cursor: nwse-resize;
       }
 
-      .hidden { display: none !important; }
+      .hidden {
+        display: none !important;
+      }
+
+      .boot-screen {
+        position: absolute;
+        inset: 0;
+        z-index: 99999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(180deg, #000000 0%, #050d1f 100%);
+        transition: opacity 0.8s ease, visibility 0.8s ease;
+      }
+
+      body.booted .boot-screen {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .boot-panel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        color: #fff;
+        text-align: center;
+        transform: scale(1.02);
+        animation: bootPulse 2.2s ease-in-out infinite alternate;
+      }
+
+      .boot-logo {
+        width: 205px;
+        height: 62px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(180deg, #1f52ff 0%, #000080 52%, #050d88 100%);
+        border: 2px solid #4e7aff;
+        box-shadow: inset 0 0 0 2px rgba(255,255,255,0.08), 0 0 18px rgba(94,147,255,0.42);
+        color: #f3f9ff;
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+      }
+
+      .boot-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 18px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(230, 240, 255, 0.9);
+      }
+
+      .boot-cursor {
+        display: inline-block;
+        width: 12px;
+        height: 18px;
+        background: #f2f7ff;
+        box-shadow: 0 0 0 1px rgba(0,0,0,0.4);
+        animation: blinkCursor 0.7s steps(1) infinite;
+      }
+
+      @keyframes blinkCursor {
+        0%, 50% { opacity: 1; }
+        50.01%, 100% { opacity: 0; }
+      }
+
+      @keyframes bootPulse {
+        from { transform: scale(0.98); opacity: 0.76; }
+        to { transform: scale(1.08); opacity: 1; }
+      }
     </style>
   </head>
   <body>
@@ -953,10 +902,7 @@
     <div id="desktop"></div>
 
     <div id="taskbar" class="taskbar">
-      <div id="startBtn" class="start-btn">
-        <span class="start-logo"></span>
-        Start
-      </div>
+      <div id="startBtn" class="start-btn"><span class="start-logo"></span><span>Start</span></div>
       <div id="taskbarButtons" class="taskbar-buttons"></div>
       <div id="clock" class="taskbar-clock">12:00 PM</div>
     </div>
@@ -982,8 +928,273 @@
       const startBtn = document.getElementById('startBtn');
       const startMenu = document.getElementById('startMenu');
       const clock = document.getElementById('clock');
-      const appMap = new Map();
-      let zIndexCounter = 10;
+      const windowRegistry = new Map();
+      let zCounter = 10;
+
+      const appDefs = [
+        {
+          id: 'mycomputer',
+          label: 'My Computer',
+          x: 24,
+          y: 24,
+          icon: 'computer',
+          title: 'My Computer',
+          width: 470,
+          height: 320,
+          render: () => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'explorer';
+            wrapper.innerHTML = `
+              <div class="explorer-toolbar">My Computer</div>
+              <div class="explorer-body">
+                <div class="explorer-sidebar">
+                  <div class="drive-row"><span class="drive-icon"></span> Hard Disk (C:)</div>
+                  <div class="drive-row"><span class="drive-icon"></span> Floppy (A:)</div>
+                  <div class="drive-row"><span class="drive-icon"></span> Network</div>
+                </div>
+                <div class="explorer-main">
+                  <h3>System Information</h3>
+                  <p>Windows 95</p>
+                  <p>Intel Pentium</p>
+                  <p>64 MB RAM</p>
+                  <p>Video: 800x600</p>
+                </div>
+              </div>
+            `;
+            return wrapper;
+          }
+        },
+        {
+          id: 'documents',
+          label: 'My Documents',
+          x: 24,
+          y: 110,
+          icon: 'doc',
+          title: 'My Documents',
+          width: 420,
+          height: 280,
+          render: () => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'explorer';
+            wrapper.innerHTML = `
+              <div class="explorer-toolbar">My Documents</div>
+              <div class="explorer-body">
+                <div class="explorer-sidebar">
+                  <div class="drive-row"><span class="drive-icon"></span> Resume.txt</div>
+                  <div class="drive-row"><span class="drive-icon"></span> Holiday.jpg</div>
+                  <div class="drive-row"><span class="drive-icon"></span> Notes.doc</div>
+                </div>
+                <div class="explorer-main">
+                  <h3>Documents</h3>
+                  <p>My Documents is the default personal folder in Windows 95.</p>
+                  <p>Double-click a document to open it.</p>
+                </div>
+              </div>
+            `;
+            return wrapper;
+          }
+        },
+        {
+          id: 'recycle',
+          label: 'Recycle Bin',
+          x: 24,
+          y: 196,
+          icon: 'bin',
+          title: 'Recycle Bin',
+          width: 340,
+          height: 200,
+          render: () => {
+            const box = document.createElement('div');
+            box.className = 'about-box';
+            box.innerHTML = `
+              <div class="about-logo">Recycle Bin</div>
+              <p>Empty</p>
+              <p>Files deleted from the desktop are kept here until removed permanently.</p>
+            `;
+            return box;
+          }
+        },
+        {
+          id: 'ie',
+          label: 'Internet Explorer',
+          x: 24,
+          y: 282,
+          icon: 'browser',
+          title: 'Internet Explorer',
+          width: 560,
+          height: 420,
+          render: () => {
+            const browser = document.createElement('div');
+            browser.className = 'browser';
+            browser.innerHTML = `
+              <div class="browser-toolbar">
+                <span>Address</span>
+                <div class="address-bar">https://www.microsoft.com</div>
+              </div>
+              <div class="browser-page">
+                <h3>Welcome to the Internet</h3>
+                <p>Hi. This is the classic internet experience from the windows 95 era.</p>
+                <ul>
+                  <li><a href="#">Start</a></li>
+                  <li><a href="#">Favorites</a></li>
+                  <li><a href="#">History</a></li>
+                  <li><a href="#">Channels</a></li>
+                </ul>
+                <h4>Featured</h4>
+                <p>Windows 95 changed the way people used personal computers. It was bright, colorful, and full of possibilities.</p>
+              </div>
+            `;
+            return browser;
+          }
+        },
+        {
+          id: 'notepad',
+          label: 'Notepad',
+          x: 118,
+          y: 24,
+          icon: 'notepad',
+          title: 'Notepad',
+          width: 440,
+          height: 320,
+          render: () => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'notepad';
+            wrapper.innerHTML = `
+              <div class="notepad-toolbar">File Edit Search Help</div>
+              <textarea class="notepad-textarea">Welcome to Windows 95.
+
+This is a classic personal computer desktop recreated in the browser.
+
+The future is here.
+</textarea>
+            `;
+            return wrapper;
+          }
+        },
+        {
+          id: 'calc',
+          label: 'Calculator',
+          x: 118,
+          y: 110,
+          icon: 'calc',
+          title: 'Calculator',
+          width: 240,
+          height: 310,
+          render: () => {
+            const calc = document.createElement('div');
+            calc.className = 'calculator';
+            calc.innerHTML = `
+              <div class="calc-display">0</div>
+              <div class="calc-grid">
+                <button class="calc-btn wide">C</button>
+                <button class="calc-btn">±</button>
+                <button class="calc-btn">/</button>
+                <button class="calc-btn">7</button>
+                <button class="calc-btn">8</button>
+                <button class="calc-btn">9</button>
+                <button class="calc-btn">*</button>
+                <button class="calc-btn">4</button>
+                <button class="calc-btn">5</button>
+                <button class="calc-btn">6</button>
+                <button class="calc-btn">-</button>
+                <button class="calc-btn">1</button>
+                <button class="calc-btn">2</button>
+                <button class="calc-btn">3</button>
+                <button class="calc-btn">+</button>
+                <button class="calc-btn wide">0</button>
+                <button class="calc-btn">.</button>
+                <button class="calc-btn">=</button>
+              </div>
+            `;
+            return calc;
+          }
+        },
+        {
+          id: 'minesweeper',
+          label: 'Minesweeper',
+          x: 118,
+          y: 196,
+          icon: 'game',
+          title: 'Minesweeper',
+          width: 280,
+          height: 340,
+          render: () => {
+            const game = document.createElement('div');
+            game.className = 'game-window';
+            game.innerHTML = `
+              <div class="game-toolbar"><span>Face</span><span>Time</span></div>
+              <div class="game-content">
+                <div class="minesweeper-board"></div>
+              </div>
+            `;
+            const board = game.querySelector('.minesweeper-board');
+            for (let i = 0; i < 81; i++) {
+              const cell = document.createElement('button');
+              cell.className = 'cell';
+              cell.type = 'button';
+              cell.addEventListener('click', () => {
+                cell.classList.add('revealed');
+                if (i % 9 === 0) cell.textContent = '•';
+              });
+              board.appendChild(cell);
+            }
+            return game;
+          }
+        },
+        {
+          id: 'solitaire',
+          label: 'Solitaire',
+          x: 118,
+          y: 282,
+          icon: 'game',
+          title: 'Solitaire',
+          width: 360,
+          height: 300,
+          render: () => {
+            const game = document.createElement('div');
+            game.className = 'game-window';
+            game.innerHTML = `
+              <div class="game-toolbar"><span>Solitaire</span><span>Score: 0</span></div>
+              <div class="game-content">
+                <div class="solitaire-board"></div>
+              </div>
+            `;
+            const board = game.querySelector('.solitaire-board');
+            for (let i = 0; i < 7; i++) {
+              const pile = document.createElement('div');
+              pile.className = 'solitaire-pile';
+              const card = document.createElement('div');
+              card.className = 'card ' + (i % 2 === 0 ? 'red' : 'black');
+              card.textContent = i % 2 === 0 ? '♥' : '♣';
+              pile.appendChild(card);
+              board.appendChild(pile);
+            }
+            return game;
+          }
+        },
+        {
+          id: 'about',
+          label: 'About',
+          x: 212,
+          y: 24,
+          icon: 'doc',
+          title: 'About Windows 95',
+          width: 330,
+          height: 210,
+          render: () => {
+            const box = document.createElement('div');
+            box.className = 'about-box';
+            box.innerHTML = `
+              <div class="about-logo">Windows</div>
+              <p>Version 4.00.0950</p>
+              <p>© 1985-1995 Microsoft Corporation</p>
+              <p>All rights reserved.</p>
+              <p>This is a faithful browser recreation of the classic 1995 desktop experience.</p>
+            `;
+            return box;
+          }
+        }
+      ];
 
       function updateClock() {
         const now = new Date();
@@ -993,98 +1204,91 @@
         clock.textContent = `${h}:${m} ${suffix}`;
       }
 
-      function bootSequence() {
-        setTimeout(() => {
-          document.body.classList.add('booted');
-        }, 2200);
-      }
-
-      function createDesktopIcon(x, y, label, appKey, iconClass) {
-        const icon = document.createElement('div');
-        icon.className = 'desktop-icon';
-        icon.style.left = `${x}px`;
-        icon.style.top = `${y}px`;
-        icon.dataset.app = appKey;
-        icon.innerHTML = `
-          <div class="icon ${iconClass}"></div>
-          <div>${label}</div>
-        `;
-        icon.addEventListener('click', () => {
-          document.querySelectorAll('.desktop-icon').forEach(el => el.classList.remove('selected'));
-          icon.classList.add('selected');
+      function renderDesktopIcons() {
+        appDefs.forEach((app) => {
+          const icon = document.createElement('div');
+          icon.className = 'desktop-icon';
+          icon.dataset.app = app.id;
+          icon.style.left = `${app.x}px`;
+          icon.style.top = `${app.y}px`;
+          icon.innerHTML = `<div class="icon icon-${app.icon}"></div><div>${app.label}</div>`;
+          icon.addEventListener('click', () => {
+            document.querySelectorAll('.desktop-icon').forEach((node) => node.classList.remove('selected'));
+            icon.classList.add('selected');
+          });
+          icon.addEventListener('dblclick', () => openApp(app.id));
+          desktop.appendChild(icon);
         });
-        icon.addEventListener('dblclick', () => openApp(appKey));
-        desktop.appendChild(icon);
       }
 
-      function addTaskbarButton(appKey) {
-        const button = document.createElement('div');
-        button.className = 'task-btn';
-        button.dataset.app = appKey;
-        button.textContent = appMap.get(appKey).title;
-        button.addEventListener('click', () => {
-          const app = appMap.get(appKey);
-          if (app && app.window) {
-            if (app.window.classList.contains('hidden')) {
-              app.window.classList.remove('hidden');
-            }
-            focusWindow(app.window, appKey);
-          }
+      function focusWindow(win, appId) {
+        document.querySelectorAll('.window').forEach((w) => {
+          w.style.zIndex = '1';
+          w.classList.remove('active');
         });
-        taskbarButtons.appendChild(button);
-      }
-
-      function focusWindow(win, appKey) {
-        const allWins = document.querySelectorAll('.window');
-        allWins.forEach(w => w.style.zIndex = '1');
-        win.style.zIndex = String(zIndexCounter++);
-        allWins.forEach(w => w.classList.remove('active'));
+        win.style.zIndex = String(zCounter++);
         win.classList.add('active');
-        document.querySelectorAll('.task-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.app === appKey));
+        document.querySelectorAll('.task-btn').forEach((btn) => {
+          btn.classList.toggle('active', btn.dataset.app === appId);
+        });
       }
 
-      function createGenericWindow({ appKey, title, width = 420, height = 260, x = 160, y = 100, content }) {
-        const win = document.createElement('div');
-        win.className = 'window active';
-        win.style.width = `${width}px`;
-        win.style.height = `${height}px`;
-        win.style.left = `${x}px`;
-        win.style.top = `${y}px`;
-        win.dataset.app = appKey;
+      function createTaskButton(appId) {
+        const app = windowRegistry.get(appId);
+        if (!app || app.taskButton) return;
+        const taskBtn = document.createElement('div');
+        taskBtn.className = 'task-btn';
+        taskBtn.dataset.app = appId;
+        taskBtn.textContent = app.title;
+        taskBtn.addEventListener('click', () => {
+          if (app.win.classList.contains('hidden')) {
+            app.win.classList.remove('hidden');
+          }
+          focusWindow(app.win, appId);
+        });
+        taskbarButtons.appendChild(taskBtn);
+        app.taskButton = taskBtn;
+      }
 
-        const titleBar = document.createElement('div');
-        titleBar.className = 'title-bar';
-        titleBar.innerHTML = `<div class="title-text">${title}</div><div class="window-controls"><button class="win-btn" data-action="minimize">_</button><button class="win-btn" data-action="maximize">▢</button><button class="win-btn" data-action="close">×</button></div>`;
+      function addWindow(app) {
+        const win = document.createElement('div');
+        win.className = 'window';
+        win.style.width = `${app.width}px`;
+        win.style.height = `${app.height}px`;
+        win.style.left = `${app.x + 200}px`;
+        win.style.top = `${app.y + 30}px`;
+        win.dataset.app = app.id;
+
+        const bar = document.createElement('div');
+        bar.className = 'title-bar';
+        bar.innerHTML = `<div class="title-text">${app.title}</div><div class="window-controls"><button class="win-btn" data-action="minimize">_</button><button class="win-btn" data-action="maximize">▢</button><button class="win-btn" data-action="close">×</button></div>`;
 
         const body = document.createElement('div');
         body.className = 'window-body';
-        body.appendChild(content);
-
-        win.appendChild(titleBar);
-        win.appendChild(body);
+        body.appendChild(app.render());
 
         const resize = document.createElement('div');
         resize.className = 'window-resize-handle';
-        win.appendChild(resize);
 
+        win.appendChild(bar);
+        win.appendChild(body);
+        win.appendChild(resize);
         document.body.appendChild(win);
 
-        const controls = titleBar.querySelectorAll('.win-btn');
-        controls.forEach(btn => {
+        bar.querySelectorAll('.win-btn').forEach((btn) => {
           btn.addEventListener('click', () => {
             const action = btn.dataset.action;
             if (action === 'close' || action === 'minimize') {
               win.classList.add('hidden');
-              const taskBtn = document.querySelector(`.task-btn[data-app="${appKey}"]`);
-              if (taskBtn) taskBtn.classList.remove('active');
+              if (app.taskButton) app.taskButton.classList.remove('active');
             }
             if (action === 'maximize') {
               const currentW = win.style.width;
-              if (currentW === '100%' || win.style.width === 'calc(100vw - 40px)') {
-                win.style.width = `${width}px`;
-                win.style.height = `${height}px`;
-                win.style.left = `${x}px`;
-                win.style.top = `${y}px`;
+              if (currentW === 'calc(100vw - 40px)' || currentW === '100%') {
+                win.style.width = `${app.width}px`;
+                win.style.height = `${app.height}px`;
+                win.style.left = `${app.x + 200}px`;
+                win.style.top = `${app.y + 30}px`;
               } else {
                 win.style.width = 'calc(100vw - 40px)';
                 win.style.height = 'calc(100vh - 92px)';
@@ -1096,338 +1300,82 @@
         });
 
         let dragState = null;
-        titleBar.addEventListener('mousedown', (event) => {
+        bar.addEventListener('mousedown', (event) => {
           if (event.target.closest('.win-btn')) return;
           dragState = {
-            startX: event.clientX,
-            startY: event.clientY,
+            x: event.clientX,
+            y: event.clientY,
             left: parseFloat(win.style.left || 0),
-            top: parseFloat(win.style.top || 0),
+            top: parseFloat(win.style.top || 0)
           };
-          focusWindow(win, appKey);
+          focusWindow(win, app.id);
         });
 
         window.addEventListener('mousemove', (event) => {
           if (!dragState) return;
-          const dx = event.clientX - dragState.startX;
-          const dy = event.clientY - dragState.startY;
+          const dx = event.clientX - dragState.x;
+          const dy = event.clientY - dragState.y;
           win.style.left = `${dragState.left + dx}px`;
           win.style.top = `${dragState.top + dy}px`;
         });
 
-        window.addEventListener('mouseup', () => { dragState = null; });
+        window.addEventListener('mouseup', () => {
+          dragState = null;
+        });
 
-        const app = { title, window: win };
-        appMap.set(appKey, app);
-        addTaskbarButton(appKey);
-        focusWindow(win, appKey);
-        return win;
+        app.win = win;
+        windowRegistry.set(app.id, app);
+        createTaskButton(app.id);
+        focusWindow(win, app.id);
       }
 
-      function openApp(appKey) {
-        const existing = appMap.get(appKey);
-        if (existing && existing.window) {
-          existing.window.classList.remove('hidden');
-          focusWindow(existing.window, appKey);
+      function openApp(appId) {
+        let app = windowRegistry.get(appId);
+        if (!app) {
+          const def = appDefs.find((item) => item.id === appId);
+          if (!def) return;
+          app = { ...def };
+          addWindow(app);
           return;
         }
 
-        const defs = {
-          mycomputer: {
-            title: 'My Computer',
-            width: 460,
-            height: 320,
-            x: 140,
-            y: 80,
-            build: () => {
-              const panel = document.createElement('div');
-              panel.className = 'explorer';
-              panel.innerHTML = `
-                <div class="explorer-toolbar">My Computer</div>
-                <div class="explorer-body">
-                  <div class="explorer-sidebar">
-                    <div class="drive-row"><span class="drive-icon"></span> Hard Disk (C:)</div>
-                    <div class="drive-row"><span class="drive-icon"></span> Floppy (A:)</div>
-                    <div class="drive-row"><span class="drive-icon"></span> Network</div>
-                  </div>
-                  <div class="explorer-main">
-                    <h3>System Information</h3>
-                    <p>Windows 95</p>
-                    <p>Intel Pentium</p>
-                    <p>64 MB RAM</p>
-                    <p>Video: 800x600</p>
-                  </div>
-                </div>
-              `;
-              return panel;
-            }
-          },
-          documents: {
-            title: 'My Documents',
-            width: 420,
-            height: 280,
-            x: 280,
-            y: 120,
-            build: () => {
-              const panel = document.createElement('div');
-              panel.className = 'explorer';
-              panel.innerHTML = `
-                <div class="explorer-toolbar">My Documents</div>
-                <div class="explorer-body">
-                  <div class="explorer-sidebar">
-                    <div class="drive-row"><span class="drive-icon"></span> Resume.txt</div>
-                    <div class="drive-row"><span class="drive-icon"></span> Holiday.jpg</div>
-                    <div class="drive-row"><span class="drive-icon"></span> Notes.doc</div>
-                  </div>
-                  <div class="explorer-main">
-                    <h3>Documents</h3>
-                    <p>My Documents is the default personal folder in Windows 95.</p>
-                    <p>Double-click a document to open it.</p>
-                  </div>
-                </div>
-              `;
-              return panel;
-            }
-          },
-          recycle: {
-            title: 'Recycle Bin',
-            width: 340,
-            height: 200,
-            x: 430,
-            y: 180,
-            build: () => {
-              const panel = document.createElement('div');
-              panel.className = 'window-body';
-              panel.innerHTML = `
-                <div class="about-box">
-                  <div class="about-logo">Recycle Bin</div>
-                  <p>Empty</p>
-                  <p>Files deleted from the desktop are kept here until removed permanently.</p>
-                </div>
-              `;
-              return panel;
-            }
-          },
-          ie: {
-            title: 'Internet Explorer',
-            width: 560,
-            height: 420,
-            x: 200,
-            y: 70,
-            build: () => {
-              const browser = document.createElement('div');
-              browser.className = 'browser';
-              browser.innerHTML = `
-                <div class="browser-toolbar">
-                  <span>Address</span>
-                  <div class="address-bar">https://www.microsoft.com</div>
-                </div>
-                <div class="browser-page">
-                  <h3>Welcome to the Internet</h3>
-                  <p>Here is the classic Web experience as it looked at the dawn of the information age.</p>
-                  <ul>
-                    <li><a href="#">Start</a></li>
-                    <li><a href="#">Favorites</a></li>
-                    <li><a href="#">History</a></li>
-                    <li><a href="#">Channels</a></li>
-                  </ul>
-                  <h4>Featured</h4>
-                  <p>Windows 95 was the beginning of a new age of home computing and the web.</p>
-                </div>
-              `;
-              return browser;
-            }
-          },
-          notepad: {
-            title: 'Notepad',
-            width: 440,
-            height: 320,
-            x: 220,
-            y: 130,
-            build: () => {
-              const notepad = document.createElement('div');
-              notepad.className = 'notepad';
-              notepad.innerHTML = `
-                <div class="notepad-toolbar">File Edit Search Help</div>
-                <textarea class="notepad-textarea">Welcome to Windows 95.
+        app.win.classList.remove('hidden');
+        focusWindow(app.win, appId);
+      }
 
-This is a classic personal computer desktop recreated in the browser.
+      function bindStartMenu() {
+        startBtn.addEventListener('click', () => {
+          startMenu.classList.toggle('show');
+          startBtn.classList.toggle('active', startMenu.classList.contains('show'));
+        });
 
-The future is here.
-</textarea>
-              `;
-              return notepad;
-            }
-          },
-          calc: {
-            title: 'Calculator',
-            width: 240,
-            height: 310,
-            x: 540,
-            y: 120,
-            build: () => {
-              const calc = document.createElement('div');
-              calc.className = 'calculator';
-              calc.innerHTML = `
-                <div class="calc-display">0</div>
-                <div class="calc-grid">
-                  <button class="calc-btn wide">C</button>
-                  <button class="calc-btn">±</button>
-                  <button class="calc-btn">/</button>
-                  <button class="calc-btn">7</button>
-                  <button class="calc-btn">8</button>
-                  <button class="calc-btn">9</button>
-                  <button class="calc-btn">*</button>
-                  <button class="calc-btn">4</button>
-                  <button class="calc-btn">5</button>
-                  <button class="calc-btn">6</button>
-                  <button class="calc-btn">-</button>
-                  <button class="calc-btn">1</button>
-                  <button class="calc-btn">2</button>
-                  <button class="calc-btn">3</button>
-                  <button class="calc-btn">+</button>
-                  <button class="calc-btn wide">0</button>
-                  <button class="calc-btn">.</button>
-                  <button class="calc-btn">=</button>
-                </div>
-              `;
-              return calc;
-            }
-          },
-          minesweeper: {
-            title: 'Minesweeper',
-            width: 280,
-            height: 340,
-            x: 80,
-            y: 230,
-            build: () => {
-              const game = document.createElement('div');
-              game.className = 'game-window';
-              game.innerHTML = `
-                <div class="game-toolbar"><span>Face</span><span>Time</span></div>
-                <div class="game-content">
-                  <div class="minesweeper-board"></div>
-                </div>
-              `;
-              const board = game.querySelector('.minesweeper-board');
-              for (let i = 0; i < 81; i++) {
-                const cell = document.createElement('button');
-                cell.className = 'cell';
-                cell.type = 'button';
-                cell.addEventListener('click', () => {
-                  cell.classList.add('revealed');
-                  if (i % 9 === 0) cell.textContent = '•';
-                });
-                board.appendChild(cell);
-              }
-              return game;
-            }
-          },
-          solitaire: {
-            title: 'Solitaire',
-            width: 360,
-            height: 300,
-            x: 520,
-            y: 220,
-            build: () => {
-              const game = document.createElement('div');
-              game.className = 'game-window';
-              game.innerHTML = `
-                <div class="game-toolbar"><span>Solitaire</span><span>Score: 0</span></div>
-                <div class="game-content">
-                  <div class="solitaire-board">
-                    <div class="solitaire-pile"></div>
-                    <div class="solitaire-pile"></div>
-                    <div class="solitaire-pile"></div>
-                    <div class="solitaire-pile"></div>
-                    <div class="solitaire-pile"></div>
-                    <div class="solitaire-pile"></div>
-                    <div class="solitaire-pile"></div>
-                  </div>
-                </div>
-              `;
-              const board = game.querySelector('.solitaire-board');
-              for (let i = 0; i < 7; i++) {
-                const pile = document.createElement('div');
-                pile.className = 'solitaire-pile';
-                const card = document.createElement('div');
-                card.className = 'card red';
-                card.textContent = i % 2 === 0 ? '♥' : '♦';
-                pile.appendChild(card);
-                board.appendChild(pile);
-              }
-              return game;
-            }
-          },
-          about: {
-            title: 'About Windows 95',
-            width: 330,
-            height: 210,
-            x: 260,
-            y: 170,
-            build: () => {
-              const box = document.createElement('div');
-              box.className = 'about-box';
-              box.innerHTML = `
-                <div class="about-logo">Windows</div>
-                <p>Version 4.00.0950</p>
-                <p>© 1985-1995 Microsoft Corporation</p>
-                <p>All rights reserved.</p>
-                <p>This is a faithful browser recreation of the classic 1995 desktop experience.</p>
-              `;
-              return box;
-            }
+        document.querySelectorAll('.start-item').forEach((item) => {
+          item.addEventListener('click', () => {
+            openApp(item.dataset.app);
+            startMenu.classList.remove('show');
+            startBtn.classList.remove('active');
+          });
+        });
+
+        document.addEventListener('click', (event) => {
+          if (!startMenu.contains(event.target) && !startBtn.contains(event.target)) {
+            startMenu.classList.remove('show');
+            startBtn.classList.remove('active');
           }
-        };
-
-        const def = defs[appKey];
-        if (!def) return;
-        createGenericWindow({
-          appKey,
-          title: def.title,
-          width: def.width,
-          height: def.height,
-          x: def.x,
-          y: def.y,
-          content: def.build(),
         });
       }
 
-      createDesktopIcon(30, 28, 'My Computer', 'mycomputer', 'icon-computer');
-      createDesktopIcon(30, 110, 'My Documents', 'documents', 'icon-doc');
-      createDesktopIcon(30, 192, 'Recycle Bin', 'recycle', 'icon-bin');
-      createDesktopIcon(30, 274, 'Internet Explorer', 'ie', 'icon-browser');
-      createDesktopIcon(30, 356, 'Notepad', 'notepad', 'icon-notepad');
-      createDesktopIcon(110, 28, 'Calculator', 'calc', 'icon-calc');
-      createDesktopIcon(110, 110, 'Minesweeper', 'minesweeper', 'icon-game');
-      createDesktopIcon(110, 192, 'Solitaire', 'solitaire', 'icon-game');
-      createDesktopIcon(110, 274, 'About', 'about', 'icon-doc');
+      function bootSequence() {
+        setTimeout(() => {
+          document.body.classList.add('booted');
+        }, 2000);
+      }
 
-      document.querySelectorAll('.start-item').forEach((item) => {
-        item.addEventListener('click', () => {
-          const appKey = item.dataset.app;
-          openApp(appKey);
-          startMenu.classList.remove('show');
-          startBtn.classList.remove('active');
-        });
-      });
-
-      startBtn.addEventListener('click', (event) => {
-        event.stopPropagation();
-        startMenu.classList.toggle('show');
-        startBtn.classList.toggle('active', startMenu.classList.contains('show'));
-      });
-
-      document.addEventListener('click', (event) => {
-        if (!startMenu.contains(event.target) && !startBtn.contains(event.target)) {
-          startMenu.classList.remove('show');
-          startBtn.classList.remove('active');
-        }
-      });
-
-      bootSequence();
+      renderDesktopIcons();
+      bindStartMenu();
       updateClock();
       setInterval(updateClock, 1000);
+      bootSequence();
     </script>
   </body>
 </html>

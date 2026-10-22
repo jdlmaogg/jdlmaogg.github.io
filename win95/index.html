@@ -25,6 +25,8 @@
         box-sizing: border-box;
         -webkit-user-select: none;
         user-select: none;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
       }
 
       html, body {
@@ -35,6 +37,7 @@
         font-family: "MS Sans Serif", "Tahoma", sans-serif;
         background: #000;
         color: #000;
+        text-rendering: geometricPrecision;
       }
 
       body {
@@ -84,6 +87,7 @@
         font-weight: 700;
         letter-spacing: 0.14em;
         text-transform: uppercase;
+        text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
       }
 
       .boot-label {
@@ -91,6 +95,23 @@
         letter-spacing: 0.20em;
         text-transform: uppercase;
         color: rgba(230, 240, 255, 0.9);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .boot-cursor {
+        display: inline-block;
+        width: 12px;
+        height: 18px;
+        background: #f2f7ff;
+        box-shadow: 0 0 0 1px rgba(0,0,0,0.4);
+        animation: blinkCursor 0.7s steps(1) infinite;
+      }
+
+      @keyframes blinkCursor {
+        0%, 50% { opacity: 1; }
+        50.01%, 100% { opacity: 0; }
       }
 
       @keyframes bootPulse {
@@ -908,7 +929,7 @@
     <div class="boot-screen">
       <div class="boot-panel">
         <div class="boot-logo">Windows</div>
-        <div class="boot-label">Starting...</div>
+        <div class="boot-label">Starting<span class="boot-cursor"></span></div>
       </div>
     </div>
 
@@ -1279,7 +1300,6 @@ The future is here.
                 </div>
               `;
               const board = game.querySelector('.minesweeper-board');
-              const cells = [];
               for (let i = 0; i < 81; i++) {
                 const cell = document.createElement('button');
                 cell.className = 'cell';
@@ -1289,7 +1309,6 @@ The future is here.
                   if (i % 9 === 0) cell.textContent = '•';
                 });
                 board.appendChild(cell);
-                cells.push(cell);
               }
               return game;
             }

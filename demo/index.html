@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Desktop Nostalgia Demo</title>
+    <style>
+      :root {
+        --bg-1: #06141f;
+        --bg-2: #0f2940;
+        --panel: rgba(8, 14, 18, 0.8);
+        --panel-border: rgba(255,255,255,0.14);
+        --text: #edf6ff;
+        --muted: rgba(237,246,255,0.8);
+        --win95-blue: #000080;
+        --win95-light: #dfe9ff;
+      }
+
+      * { box-sizing: border-box; }
+
+      html, body {
+        margin: 0;
+        width: 100%;
+        min-height: 100%;
+        font-family: "Segoe UI", Tahoma, sans-serif;
+        background: radial-gradient(circle at 50% 18%, #1c4268 0%, var(--bg-2) 35%, var(--bg-1) 100%);
+        color: var(--text);
+      }
+
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 18px;
+      }
+
+      .shell {
+        width: min(760px, 100%);
+        padding: 36px 28px 30px;
+        background: rgba(9, 17, 24, 0.76);
+        border: 2px solid var(--panel-border);
+        box-shadow: 0 22px 70px rgba(0,0,0,0.5);
+        text-align: center;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        margin-bottom: 18px;
+        padding: 8px 16px;
+        border: 2px solid #fff;
+        background: linear-gradient(180deg, #eef5ff, #b8cbff);
+        color: #111;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0 0 18px;
+        font-size: clamp(2.2rem, 5vw, 3.6rem);
+        line-height: 1;
+        letter-spacing: -0.05em;
+      }
+
+      p {
+        max-width: 640px;
+        margin: 0 auto 28px;
+        font-size: 1.05rem;
+        line-height: 1.6;
+        color: var(--muted);
+      }
+
+      .actions {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 18px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 210px;
+        height: 54px;
+        padding: 0 24px;
+        text-decoration: none;
+        color: #000;
+        font-weight: 700;
+        border-top: 2px solid #fff;
+        border-left: 2px solid #fff;
+        border-right: 2px solid #7a7a7a;
+        border-bottom: 2px solid #7a7a7a;
+        background: linear-gradient(180deg, #fefefe, #d7d7d7);
+        box-shadow: 4px 4px 0 rgba(0,0,0,0.22);
+      }
+
+      .btn.primary {
+        background: linear-gradient(180deg, #dff5ff, #9ad9ff);
+      }
+
+      .btn.secondary {
+        background: linear-gradient(180deg, #ffffff, #d5dfe8);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <div class="eyebrow">Desktop Nostalgia</div>
+      <h1>Retro desktop demo</h1>
+      <p>
+        This demo opens the Windows 95-inspired desktop environment with a modern landing page, a full taskbar setup, and a proxy-aware browser app ready for tests.
+      </p>
+
+      <div class="actions">
+        <a class="btn primary" href="/win95/">Open desktop</a>
+        <a class="btn secondary" href="/win95/?demo=proxy">Open proxy demo</a>
+      </div>
+    </main>
+  </body>
+</html>

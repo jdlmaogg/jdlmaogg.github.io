@@ -6,14 +6,15 @@
   <title>Desktop Nostalgia</title>
   <style>
     :root {
-      --bg1: #07111f;
-      --bg2: #0e1d33;
-      --panel: rgba(255,255,255,0.08);
+      --bg-1: #08131d;
+      --bg-2: #10243b;
+      --panel: rgba(10, 18, 28, 0.75);
       --panel-border: rgba(255,255,255,0.18);
-      --text: #ebf4ff;
-      --accent: #7ad6ff;
-      --accent-2: #1ea5ff;
+      --text: #edf6ff;
+      --muted: rgba(237, 246, 255, 0.8);
       --win95-blue: #000080;
+      --win95-light: #dfe9ff;
+      --win95-sky: #a9e5ff;
       --win95-gray: #c0c0c0;
     }
 
@@ -24,7 +25,7 @@
       width: 100%;
       height: 100%;
       font-family: "Segoe UI", Tahoma, sans-serif;
-      background: radial-gradient(circle at top, #163357 0%, var(--bg2) 30%, var(--bg1) 100%);
+      background: radial-gradient(circle at 50% 16%, #1c3e63 0%, var(--bg-2) 32%, var(--bg-1) 100%);
       color: var(--text);
     }
 
@@ -35,42 +36,42 @@
       overflow: hidden;
     }
 
-    .hero {
-      width: min(820px, 90vw);
-      padding: 42px 32px;
-      background: rgba(12, 20, 32, 0.85);
+    .shell {
+      width: min(860px, 90vw);
+      padding: 34px 32px 28px;
+      background: rgba(8, 14, 18, 0.76);
       border: 2px solid var(--panel-border);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.45);
-      backdrop-filter: blur(8px);
+      box-shadow: 0 22px 70px rgba(0,0,0,0.5);
       text-align: center;
     }
 
-    .brand {
+    .badge {
       display: inline-block;
-      margin-bottom: 14px;
-      padding: 8px 14px;
-      background: linear-gradient(180deg, #dfe9ff, #b8cbff);
+      margin-bottom: 18px;
+      padding: 8px 16px;
+      border: 2px solid #ffffff;
+      background: linear-gradient(180deg, #eef5ff, #b8cbff);
       color: #111;
-      border: 2px solid #fff;
-      box-shadow: 4px 4px 0 rgba(0,0,0,0.35);
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
       font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      box-shadow: 4px 4px 0 rgba(0,0,0,0.28);
     }
 
     h1 {
-      margin: 0 0 18px 0;
-      font-size: clamp(2.3rem, 5vw, 4rem);
-      font-weight: 800;
-      letter-spacing: -0.05em;
+      margin: 0 0 18px;
+      font-size: clamp(2.6rem, 6vw, 4.2rem);
+      line-height: 0.96;
+      letter-spacing: -0.06em;
+      font-weight: 900;
     }
 
     p {
-      margin: 0 auto 28px auto;
-      max-width: 650px;
-      color: rgba(235,244,255,0.82);
+      max-width: 700px;
+      margin: 0 auto 28px;
       font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--muted);
       line-height: 1.6;
     }
 
@@ -86,46 +87,47 @@
       align-items: center;
       justify-content: center;
       min-width: 220px;
-      height: 52px;
+      height: 54px;
       padding: 0 28px;
       text-decoration: none;
       color: #000;
-      background: linear-gradient(180deg, #fefefe, #d7d7d7);
+      font-weight: 700;
+      font-size: 1.05rem;
       border-top: 2px solid #fff;
       border-left: 2px solid #fff;
       border-right: 2px solid #7a7a7a;
       border-bottom: 2px solid #7a7a7a;
-      font-weight: 700;
-      font-size: 18px;
+      background: linear-gradient(180deg, #fefefe, #d7d7d7);
       box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
-      transition: transform 0.15s ease;
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
     }
 
     .btn:hover {
       transform: translateY(-1px);
+      box-shadow: 5px 5px 0 rgba(0,0,0,0.24);
     }
 
     .btn.primary {
-      background: linear-gradient(180deg, #d4f0ff, #8bd2ff);
+      background: linear-gradient(180deg, #dff5ff, #9ad9ff);
     }
 
     .btn.secondary {
-      background: linear-gradient(180deg, #ffffff, #d1d7df);
+      background: linear-gradient(180deg, #ffffff, #d5dfe8);
     }
   </style>
 </head>
 <body>
-  <main class="hero">
-    <div class="brand">Desktop Nostalgia</div>
+  <main class="shell">
+    <div class="badge">Desktop Nostalgia</div>
     <h1>Windows 95, but online.</h1>
     <p>
-      Relive the classic charm of the early internet age with a retro desktop experience,
-      complete with the Start menu, taskbar, icons, and old-school apps.
+      A browser-based throwback to the classic Windows 95 desktop experience — complete with the Start menu,
+      taskbar, programs, retro mood, and that early 90s desktop feeling.
     </p>
 
     <div class="actions">
       <a class="btn primary" href="/win95/">Launch the Desktop</a>
-      <a class="btn secondary" href="https://desktopnostalgia.com" target="_blank" rel="noreferrer">Visit the Site</a>
+      <a class="btn secondary" href="https://desktopnostalgia.com" target="_blank" rel="noreferrer">Visit the Original</a>
     </div>
   </main>
 </body>

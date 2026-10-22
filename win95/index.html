@@ -21,6 +21,7 @@
         --win95-btn-face: #dfdfdf;
         --win95-green: #1b5e20;
         --win95-red: #b22222;
+        --soft-ui: rgba(255,255,255,0.04);
       }
 
       * {
@@ -95,13 +96,26 @@
         filter: drop-shadow(1px 1px 0 rgba(0,0,0,0.5));
       }
 
-      .icon-computer::before {
+      .icon-computer::before,
+      .icon-computer::after,
+      .icon-doc::before,
+      .icon-doc::after,
+      .icon-bin::before,
+      .icon-bin::after,
+      .icon-browser::before,
+      .icon-browser::after,
+      .icon-notepad::before,
+      .icon-notepad::after,
+      .icon-calc::before,
+      .icon-calc::after,
+      .icon-game::before,
+      .icon-game::after {
         content: "";
         position: absolute;
-        left: 4px;
-        right: 4px;
-        bottom: 8px;
-        height: 18px;
+      }
+
+      .icon-computer::before {
+        left: 4px; right: 4px; bottom: 8px; height: 18px;
         background: #c0c0c0;
         border: 2px solid #666;
         border-top-color: #fff;
@@ -110,43 +124,26 @@
       }
 
       .icon-computer::after {
-        content: "";
-        position: absolute;
-        left: 8px;
-        right: 8px;
-        bottom: 2px;
-        height: 7px;
+        left: 8px; right: 8px; bottom: 2px; height: 7px;
         background: #c0c0c0;
         border: 2px solid #666;
         border-top: none;
       }
 
       .icon-doc::before {
-        content: "";
-        position: absolute;
         inset: 2px 8px 2px 8px;
         background: #fff;
         border: 1px solid rgba(0,0,0,0.4);
       }
 
       .icon-doc::after {
-        content: "";
-        position: absolute;
-        left: 15px;
-        top: 6px;
-        width: 10px;
-        height: 2px;
+        left: 15px; top: 6px; width: 10px; height: 2px;
         background: #c0c0c0;
         box-shadow: 0 5px 0 #c0c0c0, 0 10px 0 #c0c0c0;
       }
 
       .icon-bin::before {
-        content: "";
-        position: absolute;
-        left: 6px;
-        right: 6px;
-        bottom: 6px;
-        height: 20px;
+        left: 6px; right: 6px; bottom: 6px; height: 20px;
         background: #d9d9d9;
         border: 2px solid #666;
         border-top: none;
@@ -154,24 +151,14 @@
       }
 
       .icon-bin::after {
-        content: "";
-        position: absolute;
-        left: 7px;
-        right: 7px;
-        top: 4px;
-        height: 6px;
+        left: 7px; right: 7px; top: 4px; height: 6px;
         background: #d9d9d9;
         border: 2px solid #666;
         border-bottom: none;
       }
 
       .icon-browser::before {
-        content: "";
-        position: absolute;
-        left: 4px;
-        top: 4px;
-        width: 24px;
-        height: 18px;
+        left: 4px; top: 4px; width: 24px; height: 18px;
         background: linear-gradient(180deg, #3a93ff, #165fe1);
         border: 2px solid #1d1d1d;
         border-top-color: #fff;
@@ -182,38 +169,25 @@
       .icon-browser::after {
         content: "e";
         position: absolute;
-        left: 12px;
-        top: 5px;
+        left: 12px; top: 5px;
         color: white;
         font-size: 16px;
         font-weight: bold;
       }
 
       .icon-notepad::before {
-        content: "";
-        position: absolute;
-        left: 8px;
-        right: 8px;
-        top: 4px;
-        bottom: 4px;
+        left: 8px; right: 8px; top: 4px; bottom: 4px;
         background: white;
         border: 1px solid rgba(0,0,0,0.5);
       }
 
       .icon-notepad::after {
-        content: "";
-        position: absolute;
-        left: 13px;
-        top: 9px;
-        width: 12px;
-        height: 2px;
+        left: 13px; top: 9px; width: 12px; height: 2px;
         background: #bcbcbc;
         box-shadow: 0 4px 0 #bcbcbc, 0 8px 0 #bcbcbc;
       }
 
       .icon-calc::before {
-        content: "";
-        position: absolute;
         inset: 4px 5px 4px 5px;
         background: #d9d9d9;
         border: 2px solid #666;
@@ -222,7 +196,6 @@
 
       .icon-calc::after {
         content: "±";
-        position: absolute;
         inset: 0;
         display: flex;
         align-items: center;
@@ -233,8 +206,6 @@
       }
 
       .icon-game::before {
-        content: "";
-        position: absolute;
         inset: 4px 5px 4px 5px;
         background: linear-gradient(180deg, #fafafa, #d9d9d9);
         border: 2px solid #666;
@@ -243,9 +214,7 @@
 
       .icon-game::after {
         content: "✦";
-        position: absolute;
-        left: 9px;
-        top: 8px;
+        left: 9px; top: 8px;
         color: #b22222;
         font-size: 17px;
         font-weight: 700;
@@ -331,10 +300,7 @@
         overflow: auto;
       }
 
-      .explorer,
-      .browser,
-      .notepad,
-      .game-window {
+      .explorer, .browser, .notepad, .game-window {
         display: flex;
         flex-direction: column;
         width: 100%;
@@ -387,9 +353,7 @@
       }
 
       .drive-icon {
-        width: 18px;
-        height: 18px;
-        position: relative;
+        width: 18px; height: 18px; position: relative;
         background: linear-gradient(#7e7e7e, #a0a0a0);
         border: 1px solid #000;
       }
@@ -408,10 +372,7 @@
         font-size: 12px;
       }
 
-      .explorer-main h3 {
-        margin-top: 0;
-        margin-bottom: 8px;
-      }
+      .explorer-main h3 { margin-top: 0; margin-bottom: 8px; }
 
       .browser {
         border: 2px inset #c0c0c0;
@@ -432,17 +393,11 @@
         padding: 12px;
         font-size: 12px;
         line-height: 1.6;
+        background: #fff;
       }
 
-      .browser-page h3,
-      .browser-page h4 {
-        margin-top: 0;
-      }
-
-      .browser-page a {
-        color: #000080;
-        text-decoration: underline;
-      }
+      .browser-page h3, .browser-page h4 { margin-top: 0; }
+      .browser-page a { color: #000080; text-decoration: underline; }
 
       .notepad {
         background: var(--win95-gray-2);
@@ -515,9 +470,7 @@
         border-bottom: 2px solid #fff;
       }
 
-      .calc-btn.wide {
-        grid-column: span 2;
-      }
+      .calc-btn.wide { grid-column: span 2; }
 
       .about-box {
         height: 100%;
@@ -536,10 +489,7 @@
         margin-bottom: 10px;
       }
 
-      .game-window {
-        background: var(--win95-gray-2);
-      }
-
+      .game-window { background: var(--win95-gray-2); }
       .game-content {
         flex: 1;
         display: flex;
@@ -560,8 +510,7 @@
       }
 
       .cell {
-        width: 24px;
-        height: 24px;
+        width: 24px; height: 24px;
         background: #c0c0c0;
         border-top: 2px solid #fff;
         border-left: 2px solid #fff;
@@ -598,8 +547,7 @@
 
       .solitaire-pile {
         position: relative;
-        width: 42px;
-        height: 56px;
+        width: 42px; height: 56px;
         border: 2px solid rgba(255,255,255,0.35);
         border-radius: 2px;
         background: rgba(255,255,255,0.12);
@@ -607,11 +555,9 @@
 
       .card {
         position: relative;
-        width: 42px;
-        height: 56px;
+        width: 42px; height: 56px;
         display: flex;
-        align-items: center;
-        justify-content: center;
+        align-items: center; justify-content: center;
         border: 2px solid #000;
         border-radius: 3px;
         background: white;
@@ -620,19 +566,12 @@
         box-shadow: 1px 1px 0 rgba(0,0,0,0.25);
       }
 
-      .card.red {
-        color: #c00000;
-      }
-
-      .card.black {
-        color: #000;
-      }
+      .card.red { color: #c00000; }
+      .card.black { color: #000; }
 
       .taskbar {
         position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        left: 0; right: 0; bottom: 0;
         height: 36px;
         background: var(--win95-taskbar);
         border-top: 2px solid #fff;
@@ -671,8 +610,7 @@
 
       .start-logo {
         display: inline-block;
-        width: 15px;
-        height: 15px;
+        width: 15px; height: 15px;
         position: relative;
         background: linear-gradient(135deg, #ff0000 0%, #ff0000 45%, #000 45%, #000 100%);
         border: 1px solid #000;
@@ -745,9 +683,7 @@
         z-index: 3000;
       }
 
-      .start-menu.show {
-        display: flex;
-      }
+      .start-menu.show { display: flex; }
 
       .start-side {
         width: 32px;
@@ -801,8 +737,7 @@
 
       .window-resize-handle {
         position: absolute;
-        right: 0;
-        bottom: 0;
+        right: 0; bottom: 0;
         width: 12px;
         height: 12px;
         background: linear-gradient(135deg, #808080 0%, #d9d9d9 35%, #fff 35%, #fff 100%);
@@ -811,9 +746,7 @@
         cursor: nwse-resize;
       }
 
-      .hidden {
-        display: none !important;
-      }
+      .hidden { display: none !important; }
 
       .boot-screen {
         position: absolute;
@@ -845,11 +778,8 @@
       }
 
       .boot-logo {
-        width: 205px;
-        height: 62px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        width: 205px; height: 62px;
+        display: flex; align-items: center; justify-content: center;
         background: linear-gradient(180deg, #1f52ff 0%, #000080 52%, #050d88 100%);
         border: 2px solid #4e7aff;
         box-shadow: inset 0 0 0 2px rgba(255,255,255,0.08), 0 0 18px rgba(94,147,255,0.42);
@@ -931,6 +861,227 @@
       const windowRegistry = new Map();
       let zCounter = 10;
 
+      const proxyCandidates = [
+        url => `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`,
+        url => `https://r.jina.ai/http://${String(url).replace(/^https?:\/\//, '')}`
+      ];
+
+      function formatClock() {
+        const now = new Date();
+        const hour = now.getHours();
+        const minute = now.getMinutes().toString().padStart(2, '0');
+        const period = hour >= 12 ? 'PM' : 'AM';
+        const normalized = ((hour + 11) % 12) + 1;
+        clock.textContent = `${normalized}:${minute} ${period}`;
+      }
+
+      function buildDeskIcon({ id, label, x, y, icon, click }) {
+        const iconEl = document.createElement('div');
+        iconEl.className = 'desktop-icon';
+        iconEl.style.left = `${x}px`;
+        iconEl.style.top = `${y}px`;
+        iconEl.dataset.app = id;
+        iconEl.innerHTML = `<span class="icon icon-${icon}"></span><div>${label}</div>`;
+        iconEl.addEventListener('dblclick', () => click());
+        iconEl.addEventListener('click', () => {
+          document.querySelectorAll('.desktop-icon').forEach(item => item.classList.remove('selected'));
+          iconEl.classList.add('selected');
+        });
+        desktop.appendChild(iconEl);
+      }
+
+      function openWindow(appId) {
+        const app = appDefs.find(item => item.id === appId);
+        if (!app) return;
+
+        if (windowRegistry.has(appId)) {
+          const existing = windowRegistry.get(appId);
+          existing.window.classList.remove('hidden');
+          bringToFront(existing.window);
+          return;
+        }
+
+        const win = document.createElement('div');
+        win.className = 'window';
+        win.style.left = `${app.x}px`;
+        win.style.top = `${app.y}px`;
+        win.style.width = `${app.width}px`;
+        win.style.height = `${app.height}px`;
+
+        const body = document.createElement('div');
+        body.className = 'window-body';
+        const content = app.render();
+        body.appendChild(content);
+
+        const titleBar = document.createElement('div');
+        titleBar.className = 'title-bar';
+        titleBar.innerHTML = `
+          <div class="title-text">${app.title}</div>
+          <div class="window-controls">
+            <button class="win-btn" type="button" aria-label="Minimize">_</button>
+            <button class="win-btn" type="button" aria-label="Maximize">□</button>
+            <button class="win-btn" type="button" aria-label="Close">×</button>
+          </div>
+        `;
+
+        const closeBtn = titleBar.querySelectorAll('.win-btn')[2];
+        const minimizeBtn = titleBar.querySelectorAll('.win-btn')[0];
+        const maximizeBtn = titleBar.querySelectorAll('.win-btn')[1];
+
+        closeBtn.addEventListener('click', () => { win.classList.add('hidden'); });
+        minimizeBtn.addEventListener('click', () => { win.classList.add('hidden'); });
+        maximizeBtn.addEventListener('click', () => {
+          const isMax = win.dataset.maximized === 'true';
+          win.dataset.maximized = isMax ? 'false' : 'true';
+          if (!isMax) {
+            win.style.left = '20px';
+            win.style.top = '20px';
+            win.style.width = `${window.innerWidth - 40}px`;
+            win.style.height = `${window.innerHeight - 100}px`;
+          } else {
+            win.style.left = `${app.x}px`;
+            win.style.top = `${app.y}px`;
+            win.style.width = `${app.width}px`;
+            win.style.height = `${app.height}px`;
+          }
+        });
+
+        win.appendChild(titleBar);
+        win.appendChild(body);
+
+        const resizeHandle = document.createElement('div');
+        resizeHandle.className = 'window-resize-handle';
+        win.appendChild(resizeHandle);
+
+        desktop.appendChild(win);
+        bringToFront(win);
+
+        let dragging = false;
+        let startX = 0;
+        let startY = 0;
+        let offsetX = 0;
+        let offsetY = 0;
+
+        titleBar.addEventListener('mousedown', (event) => {
+          dragging = true;
+          const rect = win.getBoundingClientRect();
+          startX = event.clientX;
+          startY = event.clientY;
+          offsetX = rect.left;
+          offsetY = rect.top;
+          win.style.zIndex = String(++zCounter);
+        });
+
+        document.addEventListener('mousemove', (event) => {
+          if (!dragging) return;
+          const dx = event.clientX - startX;
+          const dy = event.clientY - startY;
+          win.style.left = `${Math.max(0, offsetX + dx)}px`;
+          win.style.top = `${Math.max(0, offsetY + dy)}px`;
+        });
+
+        document.addEventListener('mouseup', () => { dragging = false; });
+
+        const taskBtn = document.createElement('div');
+        taskBtn.className = 'task-btn';
+        taskBtn.textContent = app.title;
+        taskBtn.addEventListener('click', () => {
+          if (win.classList.contains('hidden')) {
+            win.classList.remove('hidden');
+          }
+          bringToFront(win);
+        });
+        taskbarButtons.appendChild(taskBtn);
+
+        win.addEventListener('mousedown', () => bringToFront(win));
+
+        const entry = { window: win, taskBtn, appId };
+        windowRegistry.set(appId, entry);
+
+        return entry;
+      }
+
+      function bringToFront(win) {
+        win.style.zIndex = String(++zCounter);
+        document.querySelectorAll('.window').forEach(item => item.classList.remove('active'));
+        win.classList.add('active');
+        const appId = [...windowRegistry.entries()].find(([, value]) => value.window === win)?.[0];
+        document.querySelectorAll('.task-btn').forEach(btn => btn.classList.remove('active'));
+        if (appId) {
+          const task = [...taskbarButtons.children].find(btn => btn.textContent === appDefs.find(app => app.id === appId).title);
+          if (task) task.classList.add('active');
+        }
+      }
+
+      function createBrowserApp() {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'browser';
+        const toolbar = document.createElement('div');
+        toolbar.className = 'browser-toolbar';
+        const address = document.createElement('input');
+        address.className = 'address-bar';
+        address.value = 'https://example.com';
+        const loadBtn = document.createElement('button');
+        loadBtn.className = 'win-btn';
+        loadBtn.type = 'button';
+        loadBtn.textContent = 'Go';
+        toolbar.appendChild(address);
+        toolbar.appendChild(loadBtn);
+
+        const page = document.createElement('div');
+        page.className = 'browser-page';
+        page.innerHTML = '<h3>Web Browser</h3><p>Load a page to preview it through the built-in proxy. This app uses a public CORS-friendly fallback and gracefully handles failures.</p>';
+
+        async function loadUrl() {
+          const target = address.value.trim();
+          if (!target) return;
+          page.innerHTML = '<p>Loading...</p>';
+          try {
+            const content = await fetchViaProxy(target);
+            const html = content.replace(/<script[\s\S]*?<\/script>/gi, '');
+            page.innerHTML = html.length > 12000 ? `${html.slice(0, 12000)}...` : html;
+          } catch (error) {
+            page.innerHTML = `<h3>Proxy load failed</h3><p>${error.message}</p><p>Use a direct URL like https://example.com or try another site that allows CORS proxy access.</p>`;
+          }
+        }
+
+        loadBtn.addEventListener('click', loadUrl);
+        address.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter') loadUrl();
+        });
+
+        wrapper.appendChild(toolbar);
+        wrapper.appendChild(page);
+        return wrapper;
+      }
+
+      async function fetchViaProxy(targetUrl) {
+        const url = targetUrl.trim();
+        const candidates = proxyCandidates.map(fn => fn(url));
+
+        let lastError = null;
+        for (const candidate of candidates) {
+          try {
+            const response = await fetch(candidate, { cache: 'no-store' });
+            if (!response.ok) {
+              throw new Error(`Request failed with status ${response.status}`);
+            }
+            const data = await response.json().catch(() => null);
+            if (data && typeof data.contents === 'string') {
+              return data.contents;
+            }
+            const text = await response.text();
+            if (text && text.length > 0) {
+              return text;
+            }
+          } catch (error) {
+            lastError = error;
+          }
+        }
+
+        throw lastError || new Error('Unable to fetch the page through the proxy.');
+      }
+
       const appDefs = [
         {
           id: 'mycomputer',
@@ -997,385 +1148,282 @@
         {
           id: 'recycle',
           label: 'Recycle Bin',
-          x: 24,
-          y: 196,
+          x: 300,
+          y: 36,
           icon: 'bin',
           title: 'Recycle Bin',
-          width: 340,
-          height: 200,
+          width: 300,
+          height: 220,
           render: () => {
-            const box = document.createElement('div');
-            box.className = 'about-box';
-            box.innerHTML = `
-              <div class="about-logo">Recycle Bin</div>
-              <p>Empty</p>
-              <p>Files deleted from the desktop are kept here until removed permanently.</p>
+            const wrapper = document.createElement('div');
+            wrapper.className = 'explorer';
+            wrapper.innerHTML = `
+              <div class="explorer-toolbar">Recycle Bin</div>
+              <div class="explorer-body">
+                <div class="explorer-sidebar">
+                  <div class="drive-row"><span class="drive-icon"></span> Empty</div>
+                </div>
+                <div class="explorer-main">
+                  <h3>Recycle Bin</h3>
+                  <p>The bin is empty and ready for future nostalgia.</p>
+                </div>
+              </div>
             `;
-            return box;
+            return wrapper;
           }
         },
         {
           id: 'ie',
           label: 'Internet Explorer',
-          x: 24,
-          y: 282,
+          x: 140,
+          y: 160,
           icon: 'browser',
           title: 'Internet Explorer',
           width: 560,
-          height: 420,
-          render: () => {
-            const browser = document.createElement('div');
-            browser.className = 'browser';
-            browser.innerHTML = `
-              <div class="browser-toolbar">
-                <span>Address</span>
-                <div class="address-bar">https://www.microsoft.com</div>
-              </div>
-              <div class="browser-page">
-                <h3>Welcome to the Internet</h3>
-                <p>Hi. This is the classic internet experience from the windows 95 era.</p>
-                <ul>
-                  <li><a href="#">Start</a></li>
-                  <li><a href="#">Favorites</a></li>
-                  <li><a href="#">History</a></li>
-                  <li><a href="#">Channels</a></li>
-                </ul>
-                <h4>Featured</h4>
-                <p>Windows 95 changed the way people used personal computers. It was bright, colorful, and full of possibilities.</p>
-              </div>
-            `;
-            return browser;
-          }
+          height: 380,
+          render: createBrowserApp
         },
         {
           id: 'notepad',
           label: 'Notepad',
-          x: 118,
-          y: 24,
+          x: 420,
+          y: 180,
           icon: 'notepad',
-          title: 'Notepad',
-          width: 440,
-          height: 320,
+          title: 'Untitled - Notepad',
+          width: 380,
+          height: 280,
           render: () => {
             const wrapper = document.createElement('div');
             wrapper.className = 'notepad';
-            wrapper.innerHTML = `
-              <div class="notepad-toolbar">File Edit Search Help</div>
-              <textarea class="notepad-textarea">Welcome to Windows 95.
-
-This is a classic personal computer desktop recreated in the browser.
-
-The future is here.
-</textarea>
-            `;
+            const toolbar = document.createElement('div');
+            toolbar.className = 'notepad-toolbar';
+            toolbar.textContent = 'Note';
+            const ta = document.createElement('textarea');
+            ta.className = 'notepad-textarea';
+            ta.value = 'Welcome to the retro desktop.\n\nThe proxy is enabled for the browser app, so you can try loading a remote page when the browser allows it.';
+            wrapper.appendChild(toolbar);
+            wrapper.appendChild(ta);
             return wrapper;
           }
         },
         {
           id: 'calc',
           label: 'Calculator',
-          x: 118,
-          y: 110,
+          x: 520,
+          y: 60,
           icon: 'calc',
           title: 'Calculator',
-          width: 240,
-          height: 310,
+          width: 250,
+          height: 290,
           render: () => {
-            const calc = document.createElement('div');
-            calc.className = 'calculator';
-            calc.innerHTML = `
-              <div class="calc-display">0</div>
-              <div class="calc-grid">
-                <button class="calc-btn wide">C</button>
-                <button class="calc-btn">±</button>
-                <button class="calc-btn">/</button>
-                <button class="calc-btn">7</button>
-                <button class="calc-btn">8</button>
-                <button class="calc-btn">9</button>
-                <button class="calc-btn">*</button>
-                <button class="calc-btn">4</button>
-                <button class="calc-btn">5</button>
-                <button class="calc-btn">6</button>
-                <button class="calc-btn">-</button>
-                <button class="calc-btn">1</button>
-                <button class="calc-btn">2</button>
-                <button class="calc-btn">3</button>
-                <button class="calc-btn">+</button>
-                <button class="calc-btn wide">0</button>
-                <button class="calc-btn">.</button>
-                <button class="calc-btn">=</button>
-              </div>
-            `;
-            return calc;
+            const wrapper = document.createElement('div');
+            wrapper.className = 'calculator';
+            const display = document.createElement('div');
+            display.className = 'calc-display';
+            display.textContent = '0';
+
+            let value = '0';
+            let stored = null;
+            let operator = null;
+
+            const setDisplay = () => {
+              display.textContent = value.length > 10 ? Number(value).toPrecision(7).toString() : value;
+            };
+
+            const press = (symbol) => {
+              if (/[0-9]/.test(symbol)) {
+                value = value === '0' ? symbol : value + symbol;
+                setDisplay();
+              } else if (symbol === '.') {
+                if (!value.includes('.')) value += '.';
+                setDisplay();
+              } else if (symbol === 'C') {
+                value = '0'; stored = null; operator = null; setDisplay();
+              } else if (symbol === '=') {
+                if (stored !== null && operator) {
+                  const left = Number(stored);
+                  const right = Number(value);
+                  const result = operator === '+' ? left + right : operator === '-' ? left - right : operator === '*' ? left * right : left / right;
+                  value = String(result);
+                  stored = null; operator = null; setDisplay();
+                }
+              } else if (['+','-','*','/'].includes(symbol)) {
+                if (stored !== null && operator) {
+                  const left = Number(stored);
+                  const right = Number(value);
+                  value = String(operator === '+' ? left + right : operator === '-' ? left - right : operator === '*' ? left * right : left / right);
+                }
+                stored = value;
+                operator = symbol;
+                value = '0';
+              }
+            };
+
+            const keys = [
+              ['C','/','*','←'],
+              ['7','8','9','-'],
+              ['4','5','6','+'],
+              ['1','2','3','='],
+              ['0','.']
+            ];
+
+            const grid = document.createElement('div');
+            grid.className = 'calc-grid';
+            keys.flat().forEach((key) => {
+              const btn = document.createElement('button');
+              btn.type = 'button';
+              btn.className = 'calc-btn';
+              btn.textContent = key;
+              if (key === '0') btn.classList.add('wide');
+              btn.addEventListener('click', () => press(key === '←' ? 'C' : key));
+              grid.appendChild(btn);
+            });
+
+            wrapper.appendChild(display);
+            wrapper.appendChild(grid);
+            return wrapper;
           }
         },
         {
           id: 'minesweeper',
           label: 'Minesweeper',
-          x: 118,
-          y: 196,
+          x: 200,
+          y: 250,
           icon: 'game',
           title: 'Minesweeper',
-          width: 280,
-          height: 340,
+          width: 260,
+          height: 250,
           render: () => {
-            const game = document.createElement('div');
-            game.className = 'game-window';
-            game.innerHTML = `
-              <div class="game-toolbar"><span>Face</span><span>Time</span></div>
-              <div class="game-content">
-                <div class="minesweeper-board"></div>
-              </div>
-            `;
-            const board = game.querySelector('.minesweeper-board');
+            const wrapper = document.createElement('div');
+            wrapper.className = 'game-window';
+            const toolbar = document.createElement('div');
+            toolbar.className = 'game-toolbar';
+            toolbar.textContent = 'Minesweeper';
+            const content = document.createElement('div');
+            content.className = 'game-content';
+
+            const board = document.createElement('div');
+            board.className = 'minesweeper-board';
             for (let i = 0; i < 81; i++) {
-              const cell = document.createElement('button');
+              const cell = document.createElement('div');
               cell.className = 'cell';
-              cell.type = 'button';
+              if (i % 10 === 0) cell.textContent = '•';
               cell.addEventListener('click', () => {
                 cell.classList.add('revealed');
-                if (i % 9 === 0) cell.textContent = '•';
+                if (cell.textContent === '•') cell.textContent = 'X';
               });
               board.appendChild(cell);
             }
-            return game;
+
+            content.appendChild(board);
+            wrapper.appendChild(toolbar);
+            wrapper.appendChild(content);
+            return wrapper;
           }
         },
         {
           id: 'solitaire',
           label: 'Solitaire',
-          x: 118,
-          y: 282,
+          x: 350,
+          y: 220,
           icon: 'game',
           title: 'Solitaire',
-          width: 360,
-          height: 300,
+          width: 320,
+          height: 220,
           render: () => {
-            const game = document.createElement('div');
-            game.className = 'game-window';
-            game.innerHTML = `
-              <div class="game-toolbar"><span>Solitaire</span><span>Score: 0</span></div>
-              <div class="game-content">
-                <div class="solitaire-board"></div>
-              </div>
-            `;
-            const board = game.querySelector('.solitaire-board');
-            for (let i = 0; i < 7; i++) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'game-window';
+            const toolbar = document.createElement('div');
+            toolbar.className = 'game-toolbar';
+            toolbar.textContent = 'Solitaire';
+            const content = document.createElement('div');
+            content.className = 'game-content';
+
+            const board = document.createElement('div');
+            board.className = 'solitaire-board';
+
+            ['A', 'K', 'Q', 'J', '10'].forEach((value, index) => {
               const pile = document.createElement('div');
               pile.className = 'solitaire-pile';
               const card = document.createElement('div');
-              card.className = 'card ' + (i % 2 === 0 ? 'red' : 'black');
-              card.textContent = i % 2 === 0 ? '♥' : '♣';
+              card.className = `card ${index % 2 === 0 ? 'red' : 'black'}`;
+              card.textContent = value;
               pile.appendChild(card);
               board.appendChild(pile);
-            }
-            return game;
+            });
+
+            content.appendChild(board);
+            wrapper.appendChild(toolbar);
+            wrapper.appendChild(content);
+            return wrapper;
           }
         },
         {
           id: 'about',
           label: 'About',
-          x: 212,
-          y: 24,
-          icon: 'doc',
+          x: 180,
+          y: 120,
+          icon: 'notepad',
           title: 'About Windows 95',
-          width: 330,
-          height: 210,
+          width: 360,
+          height: 250,
           render: () => {
-            const box = document.createElement('div');
-            box.className = 'about-box';
-            box.innerHTML = `
+            const wrapper = document.createElement('div');
+            wrapper.className = 'about-box';
+            wrapper.innerHTML = `
               <div class="about-logo">Windows</div>
-              <p>Version 4.00.0950</p>
-              <p>© 1985-1995 Microsoft Corporation</p>
-              <p>All rights reserved.</p>
-              <p>This is a faithful browser recreation of the classic 1995 desktop experience.</p>
+              <p>Desktop Nostalgia is a browser-based tribute to the iconic Windows 95 experience.</p>
+              <p>Features include a boot splash, taskbar, retro apps, and a proxy-aware browser window.</p>
+              <p>Built with HTML, CSS, and a lightweight JS shell for a self-contained web experience.</p>
             `;
-            return box;
+            return wrapper;
           }
         }
       ];
 
-      function updateClock() {
-        const now = new Date();
-        const h = (now.getHours() % 12) || 12;
-        const m = String(now.getMinutes()).padStart(2, '0');
-        const suffix = now.getHours() >= 12 ? 'PM' : 'AM';
-        clock.textContent = `${h}:${m} ${suffix}`;
-      }
-
-      function renderDesktopIcons() {
-        appDefs.forEach((app) => {
-          const icon = document.createElement('div');
-          icon.className = 'desktop-icon';
-          icon.dataset.app = app.id;
-          icon.style.left = `${app.x}px`;
-          icon.style.top = `${app.y}px`;
-          icon.innerHTML = `<div class="icon icon-${app.icon}"></div><div>${app.label}</div>`;
-          icon.addEventListener('click', () => {
-            document.querySelectorAll('.desktop-icon').forEach((node) => node.classList.remove('selected'));
-            icon.classList.add('selected');
-          });
-          icon.addEventListener('dblclick', () => openApp(app.id));
-          desktop.appendChild(icon);
+      appDefs.forEach(app => {
+        buildDeskIcon({
+          id: app.id,
+          label: app.label,
+          x: 24 + ((appDefs.indexOf(app) % 3) * 82),
+          y: 24 + (Math.floor(appDefs.indexOf(app) / 3) * 78),
+          icon: app.icon,
+          click: () => openWindow(app.id)
         });
-      }
+      });
 
-      function focusWindow(win, appId) {
-        document.querySelectorAll('.window').forEach((w) => {
-          w.style.zIndex = '1';
-          w.classList.remove('active');
+      document.querySelectorAll('.start-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const appId = item.dataset.app;
+          openWindow(appId);
+          startMenu.classList.remove('show');
+          startBtn.classList.remove('active');
         });
-        win.style.zIndex = String(zCounter++);
-        win.classList.add('active');
-        document.querySelectorAll('.task-btn').forEach((btn) => {
-          btn.classList.toggle('active', btn.dataset.app === appId);
-        });
-      }
+      });
 
-      function createTaskButton(appId) {
-        const app = windowRegistry.get(appId);
-        if (!app || app.taskButton) return;
-        const taskBtn = document.createElement('div');
-        taskBtn.className = 'task-btn';
-        taskBtn.dataset.app = appId;
-        taskBtn.textContent = app.title;
-        taskBtn.addEventListener('click', () => {
-          if (app.win.classList.contains('hidden')) {
-            app.win.classList.remove('hidden');
-          }
-          focusWindow(app.win, appId);
-        });
-        taskbarButtons.appendChild(taskBtn);
-        app.taskButton = taskBtn;
-      }
+      startBtn.addEventListener('click', () => {
+        const isOpen = startMenu.classList.contains('show');
+        startMenu.classList.toggle('show', !isOpen);
+        startBtn.classList.toggle('active', !isOpen);
+      });
 
-      function addWindow(app) {
-        const win = document.createElement('div');
-        win.className = 'window';
-        win.style.width = `${app.width}px`;
-        win.style.height = `${app.height}px`;
-        win.style.left = `${app.x + 200}px`;
-        win.style.top = `${app.y + 30}px`;
-        win.dataset.app = app.id;
-
-        const bar = document.createElement('div');
-        bar.className = 'title-bar';
-        bar.innerHTML = `<div class="title-text">${app.title}</div><div class="window-controls"><button class="win-btn" data-action="minimize">_</button><button class="win-btn" data-action="maximize">▢</button><button class="win-btn" data-action="close">×</button></div>`;
-
-        const body = document.createElement('div');
-        body.className = 'window-body';
-        body.appendChild(app.render());
-
-        const resize = document.createElement('div');
-        resize.className = 'window-resize-handle';
-
-        win.appendChild(bar);
-        win.appendChild(body);
-        win.appendChild(resize);
-        document.body.appendChild(win);
-
-        bar.querySelectorAll('.win-btn').forEach((btn) => {
-          btn.addEventListener('click', () => {
-            const action = btn.dataset.action;
-            if (action === 'close' || action === 'minimize') {
-              win.classList.add('hidden');
-              if (app.taskButton) app.taskButton.classList.remove('active');
-            }
-            if (action === 'maximize') {
-              const currentW = win.style.width;
-              if (currentW === 'calc(100vw - 40px)' || currentW === '100%') {
-                win.style.width = `${app.width}px`;
-                win.style.height = `${app.height}px`;
-                win.style.left = `${app.x + 200}px`;
-                win.style.top = `${app.y + 30}px`;
-              } else {
-                win.style.width = 'calc(100vw - 40px)';
-                win.style.height = 'calc(100vh - 92px)';
-                win.style.left = '20px';
-                win.style.top = '20px';
-              }
-            }
-          });
-        });
-
-        let dragState = null;
-        bar.addEventListener('mousedown', (event) => {
-          if (event.target.closest('.win-btn')) return;
-          dragState = {
-            x: event.clientX,
-            y: event.clientY,
-            left: parseFloat(win.style.left || 0),
-            top: parseFloat(win.style.top || 0)
-          };
-          focusWindow(win, app.id);
-        });
-
-        window.addEventListener('mousemove', (event) => {
-          if (!dragState) return;
-          const dx = event.clientX - dragState.x;
-          const dy = event.clientY - dragState.y;
-          win.style.left = `${dragState.left + dx}px`;
-          win.style.top = `${dragState.top + dy}px`;
-        });
-
-        window.addEventListener('mouseup', () => {
-          dragState = null;
-        });
-
-        app.win = win;
-        windowRegistry.set(app.id, app);
-        createTaskButton(app.id);
-        focusWindow(win, app.id);
-      }
-
-      function openApp(appId) {
-        let app = windowRegistry.get(appId);
-        if (!app) {
-          const def = appDefs.find((item) => item.id === appId);
-          if (!def) return;
-          app = { ...def };
-          addWindow(app);
-          return;
+      document.addEventListener('click', (event) => {
+        if (!event.target.closest('.start-menu') && !event.target.closest('.start-btn')) {
+          startMenu.classList.remove('show');
+          startBtn.classList.remove('active');
         }
+      });
 
-        app.win.classList.remove('hidden');
-        focusWindow(app.win, appId);
+      formatClock();
+      setInterval(formatClock, 60000);
+
+      setTimeout(() => {
+        document.body.classList.add('booted');
+      }, 1800);
+
+      if (new URLSearchParams(window.location.search).has('demo')) {
+        setTimeout(() => openWindow('ie'), 2200);
       }
-
-      function bindStartMenu() {
-        startBtn.addEventListener('click', () => {
-          startMenu.classList.toggle('show');
-          startBtn.classList.toggle('active', startMenu.classList.contains('show'));
-        });
-
-        document.querySelectorAll('.start-item').forEach((item) => {
-          item.addEventListener('click', () => {
-            openApp(item.dataset.app);
-            startMenu.classList.remove('show');
-            startBtn.classList.remove('active');
-          });
-        });
-
-        document.addEventListener('click', (event) => {
-          if (!startMenu.contains(event.target) && !startBtn.contains(event.target)) {
-            startMenu.classList.remove('show');
-            startBtn.classList.remove('active');
-          }
-        });
-      }
-
-      function bootSequence() {
-        setTimeout(() => {
-          document.body.classList.add('booted');
-        }, 2000);
-      }
-
-      renderDesktopIcons();
-      bindStartMenu();
-      updateClock();
-      setInterval(updateClock, 1000);
-      bootSequence();
     </script>
   </body>
 </html>
